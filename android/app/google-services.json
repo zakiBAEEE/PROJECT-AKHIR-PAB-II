@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "637540062991",
+    "project_id": "redwine-e5dfd",
+    "storage_bucket": "redwine-e5dfd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:637540062991:android:3bb368f6575afe7d3e507a",
+        "android_client_info": {
+          "package_name": "com.example.red_wine"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAN1B3cW4rqLycII6IycNNZR9mf53IfNSg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
