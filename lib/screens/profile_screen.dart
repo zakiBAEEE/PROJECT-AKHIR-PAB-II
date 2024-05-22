@@ -18,7 +18,7 @@ class _MyWidgetState extends State<ProfileScreen> {
           Container(
             height: 190,
             width: double.infinity,
-            color: Colors.blue,
+            color: Color.fromARGB(255, 14, 139, 255),
             child: const Center(
               child: Text(
                 'PROFILE',
@@ -52,16 +52,15 @@ class _MyWidgetState extends State<ProfileScreen> {
                             radius: 65,
                           ),
                         ),
-                        if (true)
-                          Positioned(
-                            right: 0,
-                            bottom: 0,
-                            child: IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.camera_alt,
-                                  color: Colors.deepPurple[50]),
-                            ),
+                        Positioned(
+                          right: 0,
+                          bottom: 0,
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: Icon(Icons.camera_alt,
+                                color: const Color.fromARGB(255, 107, 23, 233)),
                           ),
+                        ),
                       ],
                     ),
                   ),
@@ -98,7 +97,6 @@ class _MyWidgetState extends State<ProfileScreen> {
                   label: "Email",
                   value: "aanGacor@gmail.com",
                   iconColor: Colors.blue,
-                  showEditIcon: true,
                 ),
 
                 //Favorit
@@ -130,19 +128,41 @@ class _MyWidgetState extends State<ProfileScreen> {
                 ),
                 // TODO: 4 Buat ProfileAction yang berisi TextButton sign in/sign out
 
-                ButtonBar(
-                  alignment: MainAxisAlignment.center,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                          fixedSize: Size(200, 40),
-                          backgroundColor: Colors.amber),
-                      child: const Text(
-                        "Sign Out",
-                        style:
-                            TextStyle(color: Color.fromARGB(255, 192, 47, 47)),
-                      ),
+                    ButtonBar(
+                      alignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                              fixedSize: Size(200, 40),
+                              backgroundColor: Colors.amber),
+                          child: const Text(
+                            "Sign Out",
+                            style:
+                                TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                          ),
+                        ),
+                      ],
+                    ),
+                    ButtonBar(
+                      alignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                              fixedSize: Size(200, 40),
+                              backgroundColor:
+                                  const Color.fromARGB(255, 57, 255, 7)),
+                          child: const Text(
+                            "Edit Profile",
+                            style:
+                                TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 )
