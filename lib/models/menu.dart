@@ -9,8 +9,8 @@ class Menu {
   final String jenis;
   final String kategori;
   final String toko;
-  bool? isFavorite;
-  bool? isPromo;
+  final bool isFavorite;
+  final bool isPromo;
   final String jamBuka;
   Timestamp? createdAt;
   Timestamp? updateAt;
@@ -24,8 +24,8 @@ class Menu {
       required this.jenis,
       required this.kategori,
       required this.toko,
-      this.isFavorite,
-      this.isPromo,
+      required this.isFavorite,
+      required this.isPromo,
       required this.jamBuka,
       this.createdAt,
       this.updateAt});
@@ -60,7 +60,7 @@ class Menu {
       'harga': harga,
       'isFavorite': isFavorite,
       'isPromo': isPromo,
-      'jamBuka' : jamBuka,
+      'jamBuka': jamBuka,
       'created_at': createdAt,
       'update_at': updateAt,
     };

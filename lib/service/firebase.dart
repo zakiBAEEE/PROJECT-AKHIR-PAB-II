@@ -5,7 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as path;
 import 'package:red_wine/models/menu.dart';
 
-class NoteService {
+class MenuService{
   static final FirebaseFirestore _database = FirebaseFirestore.instance;
   static final CollectionReference _notesCollection =
       _database.collection('menu');

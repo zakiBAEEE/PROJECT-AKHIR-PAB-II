@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:red_wine/models/menu.dart';
 
 class CardMenu extends StatefulWidget {
-  const CardMenu({super.key});
+  final Menu menu;
+
+  const CardMenu({super.key, required this.menu});
 
   @override
   State<CardMenu> createState() => _CardMenuState();
@@ -11,9 +14,10 @@ class _CardMenuState extends State<CardMenu> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){},
+      onTap: () {},
       child: SizedBox(
         width: 150,
+        height:200,
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Stack(
             alignment: AlignmentDirectional.bottomStart,
@@ -23,14 +27,14 @@ class _CardMenuState extends State<CardMenu> {
                   width: MediaQuery.of(context).size.width,
                   child: Ink.image(
                     image: NetworkImage(
-                        "https://firebasestorage.googleapis.com/v0/b/notes-984be.appspot.com/o/images%2F1000000034.jpg?alt=media&token=522b5405-82a2-46bb-b7a7-b8b1fd10c6b8"),
+                        "${widget.menu.imageUrl}"),
                     fit: BoxFit.cover,
                     alignment: Alignment.center,
                     width: double.infinity,
                   )),
-              if (true)
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
+              if (widget.menu.isPromo)
+              const  Padding(
+                  padding:  EdgeInsets.all(4.0),
                   child: Text(
                     " ON SALE 5%",
                     style: TextStyle(
@@ -41,24 +45,24 @@ class _CardMenuState extends State<CardMenu> {
           ),
           const SizedBox(height: 8),
           SizedBox(
-              child: Text('Pempek Piko',
+              child: Text(widget.menu.toko,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   softWrap: false,
                   style: Theme.of(context).textTheme.caption)),
           SizedBox(
-              child: Text('Pempek Keriting',
+              child: Text(widget.menu.title,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   softWrap: false,
                   style: Theme.of(context).textTheme.bodyText2)),
-          Padding(
+         const Padding(
             padding: const EdgeInsets.symmetric(vertical: 2.0),
             // child: ColorIndicatorView(product: product),
           ),
           Row(
             children: [
-              Text('Rp7.000,00',
+              Text(widget.menu.harga,
                   maxLines: 1,
                   overflow: TextOverflow.clip,
                   softWrap: false,
