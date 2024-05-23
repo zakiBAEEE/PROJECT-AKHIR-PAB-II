@@ -16,8 +16,8 @@ class _CardMenuState extends State<CardMenu> {
     return InkWell(
       onTap: () {},
       child: SizedBox(
-        width: 150,
-        height:200,
+        width: 100,
+        height:100,
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Stack(
             alignment: AlignmentDirectional.bottomStart,

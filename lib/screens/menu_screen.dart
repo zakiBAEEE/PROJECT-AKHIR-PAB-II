@@ -25,8 +25,10 @@ class _MenuScreenState extends State<MenuScreen> {
               child: CircularProgressIndicator(),
             );
           default:
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            return GridView.count(
+              crossAxisCount: 2, // Misalnya, kita ingin grid dengan 2 kolom
+              mainAxisSpacing: 4.0, // Jarak vertikal antara item
+              crossAxisSpacing: 4.0, // Jarak horizontal antara item
               children: snapshot.data!.map((document) {
                 return CardMenu(menu: document);
               }).toList(),
