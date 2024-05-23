@@ -11,6 +11,7 @@ class Menu {
   final String toko;
   bool? isFavorite;
   bool? isPromo;
+  final String jamBuka;
   Timestamp? createdAt;
   Timestamp? updateAt;
 
@@ -25,6 +26,7 @@ class Menu {
       required this.toko,
       this.isFavorite,
       this.isPromo,
+      required this.jamBuka,
       this.createdAt,
       this.updateAt});
 
@@ -41,6 +43,7 @@ class Menu {
       toko: data['toko'],
       isFavorite: data['isFavorite'],
       isPromo: data['isPromo'],
+      jamBuka: data['jamBuka'],
       createdAt: data['created_at'] as Timestamp,
       updateAt: data['update_at'] as Timestamp,
     );
@@ -57,6 +60,7 @@ class Menu {
       'harga': harga,
       'isFavorite': isFavorite,
       'isPromo': isPromo,
+      'jamBuka' : jamBuka,
       'created_at': createdAt,
       'update_at': updateAt,
     };

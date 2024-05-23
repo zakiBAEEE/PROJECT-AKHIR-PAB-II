@@ -22,6 +22,8 @@ class NoteService {
       'toko': menu.toko,
       'isFavorite': menu.isFavorite,
       'isPromo': menu.isPromo,
+      'jamBuka' : menu.jamBuka,
+      'la'
       'created_at': FieldValue.serverTimestamp(),
       'update_at': FieldValue.serverTimestamp(),
     };
@@ -56,6 +58,7 @@ class NoteService {
       'toko': menu.toko,
       'isFavorite': menu.isFavorite,
       'isPromo': menu.isPromo,
+      'jamBuka' : menu.jamBuka,
       'created_at': menu.createdAt,
       'update_at': FieldValue.serverTimestamp()
     };
@@ -89,6 +92,9 @@ class NoteService {
             harga: data['harga'],
             jenis: data['jenis'],
             kategori: data['kategori'],
+            isFavorite: data['isFavorite'],
+            isPromo: data['isPromo'],
+            jamBuka: data['jamBuka'],
             toko: data['toko']);
       }).toList();
     });
