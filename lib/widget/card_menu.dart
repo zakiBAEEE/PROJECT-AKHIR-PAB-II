@@ -21,7 +21,7 @@ class _CardMenuState extends State<CardMenu> {
                 width: MediaQuery.of(context).size.width,
                 child: Ink.image(
                   image: NetworkImage(
-                      "https://firebasestorage.googleapis.com/v0/b/notes-984be.appspot.com/o/images%2F1000000033.jpg?alt=media&token=8c03c679-983e-444a-9747-cb38d6f5175a"),
+                      "https://firebasestorage.googleapis.com/v0/b/notes-984be.appspot.com/o/images%2F1000000034.jpg?alt=media&token=522b5405-82a2-46bb-b7a7-b8b1fd10c6b8"),
                   fit: BoxFit.cover,
                   alignment: Alignment.center,
                   width: double.infinity,

@@ -10,6 +10,7 @@ class Menu {
   final String kategori;
   final String toko;
   bool? isFavorite;
+  bool? isPromo;
   Timestamp? createdAt;
   Timestamp? updateAt;
 
@@ -23,6 +24,7 @@ class Menu {
       required this.kategori,
       required this.toko,
       this.isFavorite,
+      this.isPromo,
       this.createdAt,
       this.updateAt});
 
@@ -31,12 +33,14 @@ class Menu {
     return Menu(
       id: doc.id,
       title: data['title'],
-      description: data['description'],
       imageUrl: data['imageUrl'],
+      description: data['description'],
+      harga: data['harga'],
       jenis: data['jenis'],
       kategori: data['kategori'],
       toko: data['toko'],
-      harga: data['harga'],
+      isFavorite: data['isFavorite'],
+      isPromo: data['isPromo'],
       createdAt: data['created_at'] as Timestamp,
       updateAt: data['update_at'] as Timestamp,
     );
@@ -51,6 +55,8 @@ class Menu {
       'kategori': kategori,
       'toko': toko,
       'harga': harga,
+      'isFavorite': isFavorite,
+      'isPromo': isPromo,
       'created_at': createdAt,
       'update_at': updateAt,
     };
