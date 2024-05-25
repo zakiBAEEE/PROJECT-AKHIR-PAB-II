@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:red_wine/models/menu.dart';
 import 'package:red_wine/screens/komentar_screen.dart';
 
@@ -20,17 +21,6 @@ class _DetailPageState extends State<DetailPage> {
     super.initState();
     // _checkSignInStatus();
   }
-
-  // //Memeriksa status sign in
-  // void _checkSignInStatus() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   bool signedIn = prefs.getBool('isSignedIn') ?? false;
-  //   setState(() {
-  //     isSignIn = signedIn;
-  //   });
-  // }
-
-  // Memeriksa status favorite
 
   Future<void> _toggleFavorite() async {
     bool favoriteStatus = !isFavorite;
@@ -104,7 +94,7 @@ class _DetailPageState extends State<DetailPage> {
                   ),
                   Text(
                     widget.menu.harga,
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -119,9 +109,9 @@ class _DetailPageState extends State<DetailPage> {
               const SizedBox(
                 width: 20,
               ),
-              Column(
+              const Column(
                 children: [
-                  const Text("Waktu Penyajian"),
+                  Text("Waktu Penyajian"),
                   SizedBox(
                     height: 5,
                   ),
@@ -131,7 +121,7 @@ class _DetailPageState extends State<DetailPage> {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
               Container(
@@ -139,30 +129,30 @@ class _DetailPageState extends State<DetailPage> {
                 height: 30,
                 color: Colors.black,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
               Column(
                 children: [
-                  Text("Waktu Tersedia"),
-                  SizedBox(
+                  const Text("Waktu Tersedia"),
+                  const SizedBox(
                     height: 5,
                   ),
                   Text(
                     widget.menu.jamBuka,
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Row(
+              const Row(
                 children: [
                   Icon(Icons.shopping_bag),
                   SizedBox(
@@ -177,17 +167,17 @@ class _DetailPageState extends State<DetailPage> {
               Row(
                 children: [
                   Text(widget.menu.toko),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
-                  Icon(Icons.map_outlined)
+                  const Icon(Icons.map_outlined)
                 ],
               ),
             ],
           ),
           const SizedBox(height: 30),
           Text(
-            'Tentang ' + widget.menu.title,
+            'Tentang ${widget.menu.title}',
             style: Theme.of(context).textTheme.titleLarge!.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -203,23 +193,6 @@ class _DetailPageState extends State<DetailPage> {
           ),
           const SizedBox(height: 20),
           const SizedBox(height: 20),
-          InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ComentarScreen(
-                            id: widget.id,
-                          )),
-                );
-              },
-              child: const Text("KOMENTAR")),
-          Container(
-            width: 300,
-            child: Divider(
-              color: Colors.green,
-            ),
-          ),
         ],
       ),
     );
@@ -297,26 +270,58 @@ class _DetailPageState extends State<DetailPage> {
                 ),
           ),
           const Spacer(),
-          Material(
-            color: Colors.white.withOpacity(0.3),
-            borderRadius: BorderRadius.circular(8),
-            child: InkWell(
-              onTap: () {},
-              borderRadius: BorderRadius.circular(8),
-              child: Container(
-                height: 40,
-                width: 40,
-                alignment: Alignment.center,
-                child: IconButton(
-                  onPressed: () {
-                    _toggleFavorite();
-                  },
-                  icon: Icon(
-                      isFavorite ? Icons.favorite : Icons.favorite_border,
-                      color: isFavorite ? Colors.red : null),
+          Row(
+            children: [
+              Material(
+                color: Colors.white.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(8),
+                child: InkWell(
+                  onTap: () {},
+                  borderRadius: BorderRadius.circular(8),
+                  child: Container(
+                    height: 40,
+                    width: 40,
+                    alignment: Alignment.center,
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ComentarScreen(
+                                    id: widget.id,
+                                  )),
+                        );
+                      },
+                      icon: Icon(Icons.comment_sharp),
+                    ),
+                  ),
                 ),
               ),
-            ),
+              SizedBox(
+                width: 20,
+              ),
+              Material(
+                color: Colors.white.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(8),
+                child: InkWell(
+                  onTap: () {},
+                  borderRadius: BorderRadius.circular(8),
+                  child: Container(
+                    height: 40,
+                    width: 40,
+                    alignment: Alignment.center,
+                    child: IconButton(
+                      onPressed: () {
+                        _toggleFavorite();
+                      },
+                      icon: Icon(
+                          isFavorite ? Icons.favorite : Icons.favorite_border,
+                          color: isFavorite ? Colors.red : null),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           )
         ],
       ),

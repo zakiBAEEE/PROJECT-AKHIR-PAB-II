@@ -28,7 +28,6 @@ class MenuService {
           'created_at': FieldValue.serverTimestamp(),
       'update_at': FieldValue.serverTimestamp(),
     };
-
     await _notesCollection.add(newNote);
   }
 
