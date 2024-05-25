@@ -1,116 +1,8 @@
-// import 'package:flutter/material.dart';
-// import 'package:red_wine/models/menu.dart';
-
-// class DetailMenu extends StatefulWidget {
-//   final Menu menu;
-//   const DetailMenu({super.key, required this.menu});
-
-//   @override
-//   State<DetailMenu> createState() => _DetailMenuState();
-// }
-
-// class _DetailMenuState extends State<DetailMenu> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Card(
-//       shape: RoundedRectangleBorder(
-//         borderRadius: BorderRadius.circular(15.0),
-//       ),
-//       elevation: 5,
-//       child: Padding(
-//         padding: const EdgeInsets.all(16.0),
-//         child: Column(
-//           mainAxisSize: MainAxisSize.min,
-//           children: [
-//             // Image.asset(
-//             //   'assets/logo.png',
-//             //   height: 100,
-//             // ),
-//             const SizedBox(height: 8),
-//              Text(
-//               widget.menu.title,
-//               style: const TextStyle(
-//                 fontSize: 24,
-//                 fontWeight: FontWeight.bold,
-//               ),
-//             ),
-//             const SizedBox(height: 8),
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.center,
-//               children: List.generate(5, (index) {
-//                 return const Icon(
-//                   Icons.star,
-//                   color: Colors.amber,
-//                 );
-//               }),
-//             ),
-//             const SizedBox(height: 8),
-//              Text(
-//               widget.menu.harga,
-//               style: const TextStyle(
-//                 fontSize: 20,
-//                 fontWeight: FontWeight.bold,
-//               ),
-//             ),
-//             const SizedBox(height: 8),
-//              Text(
-//               widget.menu.description,
-//               textAlign: TextAlign.center,
-//               style: const TextStyle(
-//                 fontSize: 16,
-//               ),
-//             ),
-//             const SizedBox(height: 8),
-//             const Divider(),
-//             const Text(
-//               'Komentar :',
-//               style: TextStyle(
-//                 fontSize: 16,
-//                 fontWeight: FontWeight.bold,
-//               ),
-//             ),
-//             const SizedBox(height: 8),
-//             const Text(
-//               'Enak Banget Pempek Lenjernya !',
-//               textAlign: TextAlign.center,
-//               style: TextStyle(
-//                 fontSize: 16,
-//                 fontStyle: FontStyle.italic,
-//               ),
-//             ),
-//             const SizedBox(height: 8),
-//             TextButton(
-//               onPressed: () {},
-//               style: ButtonStyle(
-//                 backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-//                   (Set<MaterialState> states) {
-//                     if (states.contains(MaterialState.pressed)) {
-//                       return Colors.amber.withOpacity(
-//                           0.5); // Warna latar belakang saat tombol ditekan
-//                     } else {
-//                       return Colors.amber; // Warna latar belakang default
-//                     }
-//                   },
-//                 ),
-//               ),
-//               child: const Text(
-//                 'Rating',
-//                 style: TextStyle(color: Colors.black),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:red_wine/models/menu.dart';
 
-
 class DetailPage extends StatefulWidget {
-    final Menu menu;
+  final Menu menu;
   const DetailPage({super.key, required this.menu});
 
   @override
@@ -118,7 +10,6 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
-  
   bool isFavorite = false;
   // bool isSignIn = false; // Menyimpan status sign in
 
@@ -139,10 +30,7 @@ class _DetailPageState extends State<DetailPage> {
 
   // Memeriksa status favorite
 
-
   Future<void> _toggleFavorite() async {
-   
-
     bool favoriteStatus = !isFavorite;
     // Tambahkan pemanggilan untuk memperbarui tampilan Favorit
 
@@ -209,7 +97,7 @@ class _DetailPageState extends State<DetailPage> {
               Column(
                 children: [
                   const Text("Harga Menu"),
-                 const  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Text(
@@ -218,7 +106,7 @@ class _DetailPageState extends State<DetailPage> {
                   ),
                 ],
               ),
-             const SizedBox(
+              const SizedBox(
                 width: 30,
               ),
               Container(
@@ -226,17 +114,17 @@ class _DetailPageState extends State<DetailPage> {
                 height: 30,
                 color: Colors.black,
               ),
-             const SizedBox(
+              const SizedBox(
                 width: 20,
               ),
               Column(
                 children: [
-                 const Text("Waktu Penyajian"),
+                  const Text("Waktu Penyajian"),
                   SizedBox(
                     height: 5,
                   ),
                   Text(
-                     " Menit",
+                    " Menit",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   )
                 ],
@@ -259,11 +147,38 @@ class _DetailPageState extends State<DetailPage> {
                     height: 5,
                   ),
                   Text(
-                   widget.menu.jamBuka,
+                    widget.menu.jamBuka,
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],
               )
+            ],
+          ),
+          SizedBox(
+            height: 30,
+          ),
+           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.shopping_bag),
+                  SizedBox(width: 10,),
+                  Text(
+                    "Toko",
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Text(widget.menu.toko),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Icon(Icons.map_outlined)
+                ],
+              ),
             ],
           ),
           const SizedBox(height: 30),
