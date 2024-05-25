@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:red_wine/models/komentar.dart';
 import 'package:red_wine/models/menu.dart';
+import 'package:red_wine/screens/komentar_screen.dart';
 
 class DetailPage extends StatefulWidget {
   final Menu menu;
@@ -56,6 +58,8 @@ class _DetailPageState extends State<DetailPage> {
   }
 
   Container details() {
+    List<Komentar>? komentars = widget.menu.komentar;
+
     return Container(
       color: Colors.white,
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -157,13 +161,15 @@ class _DetailPageState extends State<DetailPage> {
           SizedBox(
             height: 30,
           ),
-           Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Row(
                 children: [
                   Icon(Icons.shopping_bag),
-                  SizedBox(width: 10,),
+                  SizedBox(
+                    width: 10,
+                  ),
                   Text(
                     "Toko",
                     style: TextStyle(fontWeight: FontWeight.w600),
@@ -198,7 +204,24 @@ class _DetailPageState extends State<DetailPage> {
             ),
           ),
           const SizedBox(height: 20),
-          const SizedBox(height: 20)
+          const SizedBox(height: 20),
+          InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ComentarScreen(
+                            komentar: widget.menu.komentar!,
+                          )),
+                );
+              },
+              child: const Text("KOMENTAR")),
+          Container(
+            width: 300,
+            child: Divider(
+              color: Colors.green,
+            ),
+          ),
         ],
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:red_wine/models/komentar.dart';
 
 class Menu {
   String? id;
@@ -12,6 +13,7 @@ class Menu {
   final bool isFavorite;
   final bool isPromo;
   final String jamBuka;
+  List<Komentar>? komentar;
   Timestamp? createdAt;
   Timestamp? updateAt;
 
@@ -27,6 +29,7 @@ class Menu {
       required this.isFavorite,
       required this.isPromo,
       required this.jamBuka,
+      this.komentar,
       this.createdAt,
       this.updateAt});
 
@@ -44,6 +47,7 @@ class Menu {
       isFavorite: data['isFavorite'],
       isPromo: data['isPromo'],
       jamBuka: data['jamBuka'],
+      komentar: data['komentar'],
       createdAt: data['created_at'] as Timestamp,
       updateAt: data['update_at'] as Timestamp,
     );
@@ -61,6 +65,7 @@ class Menu {
       'isFavorite': isFavorite,
       'isPromo': isPromo,
       'jamBuka': jamBuka,
+      'komentar' : komentar,
       'created_at': createdAt,
       'update_at': updateAt,
     };

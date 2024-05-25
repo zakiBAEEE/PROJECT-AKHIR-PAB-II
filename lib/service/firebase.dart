@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as path;
+import 'package:red_wine/models/komentar.dart';
 import 'package:red_wine/models/menu.dart';
 
 class MenuService{
@@ -74,29 +75,70 @@ class MenuService{
     return _notesCollection.get();
   }
 
+  // static Stream<List<Menu>> getNoteList() {
+  //   return _notesCollection.snapshots().map((snapshot) {
+  //     return snapshot.docs.map((doc) {
+  //       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+  //       return Menu(
+  //           id: doc.id,
+  //           title: data['title'],
+  //           description: data['description'],
+  //           imageUrl: data['imageUrl'],
+  //           createdAt: data['created_at'] != null
+  //               ? data['created_at'] as Timestamp
+  //               : null,
+  //           updateAt: data['updated_at'] != null
+  //               ? data['updated_at'] as Timestamp
+  //               : null,
+  //           harga: data['harga'],
+  //           jenis: data['jenis'],
+  //           kategori: data['kategori'],
+  //           isFavorite: data['isFavorite'],
+  //           isPromo: data['isPromo'],
+  //           jamBuka: data['jamBuka'],
+  //           toko: data['toko']);
+  //     }).toList();
+  //   });
+  // }
+
   static Stream<List<Menu>> getNoteList() {
-    return _notesCollection.snapshots().map((snapshot) {
-      return snapshot.docs.map((doc) {
+    return _notesCollection.snapshots().asyncMap((snapshot) async {
+      final menus = await Future.wait(snapshot.docs.map((doc) async {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+
+        // Query untuk mendapatkan koleksi komentar terkait
+        final komentarSnapshot = await _notesCollection
+            .doc(doc.id)
+            .collection('komentar')
+            .get();
+
+        final komentarList = komentarSnapshot.docs.map((komentarDoc) {
+          Map<String, dynamic> komentarData = komentarDoc.data() as Map<String, dynamic>;
+          return Komentar(
+            id: komentarDoc.id,
+            komentar: komentarData['komentar'],
+          );
+        }).toList();
+
         return Menu(
-            id: doc.id,
-            title: data['title'],
-            description: data['description'],
-            imageUrl: data['imageUrl'],
-            createdAt: data['created_at'] != null
-                ? data['created_at'] as Timestamp
-                : null,
-            updateAt: data['updated_at'] != null
-                ? data['updated_at'] as Timestamp
-                : null,
-            harga: data['harga'],
-            jenis: data['jenis'],
-            kategori: data['kategori'],
-            isFavorite: data['isFavorite'],
-            isPromo: data['isPromo'],
-            jamBuka: data['jamBuka'],
-            toko: data['toko']);
-      }).toList();
+          id: doc.id,
+          title: data['title'],
+          description: data['description'],
+          imageUrl: data['imageUrl'],
+          createdAt: data['created_at'] != null ? data['created_at'] as Timestamp : null,
+          updateAt: data['updated_at'] != null ? data['updated_at'] as Timestamp : null,
+          harga: data['harga'],
+          jenis: data['jenis'],
+          kategori: data['kategori'],
+          isFavorite: data['isFavorite'],
+          isPromo: data['isPromo'],
+          jamBuka: data['jamBuka'],
+          toko: data['toko'],
+          komentar: komentarList, // Menambahkan list komentar
+        );
+      }).toList());
+
+      return menus;
     });
   }
 }
