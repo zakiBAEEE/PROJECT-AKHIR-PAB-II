@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:red_wine/models/menu.dart';
+import 'package:red_wine/screens/detail_screen.dart';
 
 class CardMenu extends StatefulWidget {
   final Menu menu;
@@ -14,10 +15,18 @@ class _CardMenuState extends State<CardMenu> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => DetailPage(
+                    menu: widget.menu,
+                  )),
+        );
+      },
       child: SizedBox(
         width: 100,
-        height:100,
+        height: 100,
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Stack(
             alignment: AlignmentDirectional.bottomStart,
@@ -26,15 +35,14 @@ class _CardMenuState extends State<CardMenu> {
                   height: 100,
                   width: MediaQuery.of(context).size.width,
                   child: Ink.image(
-                    image: NetworkImage(
-                        "${widget.menu.imageUrl}"),
+                    image: NetworkImage("${widget.menu.imageUrl}"),
                     fit: BoxFit.cover,
                     alignment: Alignment.center,
                     width: double.infinity,
                   )),
               if (widget.menu.isPromo)
-              const  Padding(
-                  padding:  EdgeInsets.all(4.0),
+                const Padding(
+                  padding: EdgeInsets.all(4.0),
                   child: Text(
                     " ON SALE 5%",
                     style: TextStyle(
@@ -56,7 +64,7 @@ class _CardMenuState extends State<CardMenu> {
                   overflow: TextOverflow.ellipsis,
                   softWrap: false,
                   style: Theme.of(context).textTheme.bodyText2)),
-         const Padding(
+          const Padding(
             padding: const EdgeInsets.symmetric(vertical: 2.0),
             // child: ColorIndicatorView(product: product),
           ),
