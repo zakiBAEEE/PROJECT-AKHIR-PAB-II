@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:red_wine/models/komentar.dart';
 import 'package:red_wine/models/menu.dart';
 import 'package:red_wine/screens/komentar_screen.dart';
 
 class DetailPage extends StatefulWidget {
   final Menu menu;
-  const DetailPage({super.key, required this.menu});
+  final String id;
+  const DetailPage({super.key, required this.menu, required this.id});
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -58,8 +58,6 @@ class _DetailPageState extends State<DetailPage> {
   }
 
   Container details() {
-    List<Komentar>? komentars = widget.menu.komentar;
-
     return Container(
       color: Colors.white,
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -211,7 +209,7 @@ class _DetailPageState extends State<DetailPage> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => ComentarScreen(
-                            komentar: widget.menu.komentar!,
+                            id: widget.id,
                           )),
                 );
               },

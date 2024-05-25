@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:red_wine/models/komentar.dart';
+import 'package:red_wine/service/firebase.dart';
 
 class ComentarScreen extends StatefulWidget {
-  final List<Komentar> komentar;
+  final String id;
 
-  const ComentarScreen({super.key, required this.komentar});
+  const ComentarScreen({super.key, required this.id});
 
   @override
   State<ComentarScreen> createState() => _ComentarScreenState();
@@ -14,22 +14,51 @@ class _ComentarScreenState extends State<ComentarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("KOMENTAR"),
-      ),
-      body: widget.komentar != null && widget.komentar.isNotEmpty
-          ? ListView.builder(
-              itemCount: widget.komentar.length,
-              itemBuilder: (context, index) {
-                final komentar = widget.komentar[index];
-                return ListTile(
-                  title: Text(komentar.komentar.toString()),
-                );
-              },
-            )
-          : const Center(
-              child: Text('No comments available'),
-            ),
+        appBar: AppBar(
+          title: const Text("KOMENTAR"),
+        ),
+        body: ComentarList(
+          id: widget.id,
+        ));
+  }
+}
+
+class ComentarList extends StatefulWidget {
+  final String id;
+  const ComentarList({super.key, required this.id});
+
+  @override
+  State<ComentarList> createState() => _ComentarListState();
+}
+class _ComentarListState extends State<ComentarList> {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: MenuService.getKomentarList(widget.id),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        }
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          default:
+            final komentarList = snapshot.data!;
+            return ListView.builder(
+                itemCount: komentarList.length,
+                itemBuilder: (context, index) {
+                  final komentar = komentarList[index];
+                  return Card(
+                    child: ListTile(
+                      title: Text("User ${index + 1}"),
+                      subtitle: Text(komentar.komentar.toString()),
+                    ),
+                  );
+                });
+        }
+      },
     );
   }
 }

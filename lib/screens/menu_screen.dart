@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:red_wine/models/menu.dart';
 import 'package:red_wine/service/firebase.dart';
 import 'package:red_wine/widget/card_menu.dart';
 
@@ -55,7 +54,7 @@ class _MenuScreenState extends State<MenuScreen> {
             );
           default:
             if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return Center(child: Text('No data available'));
+              return const Center(child: Text('No data available'));
             }
 
             // Pisahkan data berdasarkan jenis
@@ -74,12 +73,12 @@ class _MenuScreenState extends State<MenuScreen> {
                   children: [
                     // Bagian Makanan
                     if (makanan.isNotEmpty) ...[
-                      Text(
+                     const Text(
                         'Makanan',
                         style: TextStyle(
                             fontSize: 30, fontWeight: FontWeight.w600),
                       ),
-                      Container(
+                      SizedBox(
                         width: 300,
                         child: Divider(
                           color: Colors.grey[400],
@@ -92,22 +91,22 @@ class _MenuScreenState extends State<MenuScreen> {
                         shrinkWrap:
                             true, // Penting untuk menyesuaikan ukuran GridView dengan isinya
                         physics:
-                            NeverScrollableScrollPhysics(), // Menghindari konflik scrolling dengan SingleChildScrollView
+                            const NeverScrollableScrollPhysics(), // Menghindari konflik scrolling dengan SingleChildScrollView
                         children: makanan.map((document) {
-                          return CardMenu(menu: document);
+                          return CardMenu(menu: document, id: document.id!,);
                         }).toList(),
                       ),
                     ],
 
                     // Bagian Minuman
                     if (minuman.isNotEmpty) ...[
-                      SizedBox(height: 16.0), // Spasi antara bagian
-                      Text(
+                    const  SizedBox(height: 16.0), // Spasi antara bagian
+                     const Text(
                         'Minuman',
                          style: TextStyle(
                             fontSize: 30, fontWeight: FontWeight.w600),
                       ),
-                      Container(
+                      SizedBox(
                         width: 300,
                         child: Divider(
                           color: Colors.grey[400],
@@ -119,9 +118,9 @@ class _MenuScreenState extends State<MenuScreen> {
                         mainAxisSpacing: 4.0,
                         crossAxisSpacing: 4.0,
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         children: minuman.map((document) {
-                          return CardMenu(menu: document);
+                          return CardMenu(menu: document, id: document.id!,);
                         }).toList(),
                       ),
                     ],
