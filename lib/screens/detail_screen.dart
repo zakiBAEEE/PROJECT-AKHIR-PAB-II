@@ -34,6 +34,7 @@ class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       backgroundColor: Colors.green,
       body: ListView(
         children: [
@@ -297,7 +298,7 @@ class _DetailPageState extends State<DetailPage> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
               Material(

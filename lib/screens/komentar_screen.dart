@@ -14,6 +14,11 @@ class _ComentarScreenState extends State<ComentarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          tooltip: 'Tambah Komentar',
+          child: const Icon(Icons.add),
+        ),
         appBar: AppBar(
           title: const Text("KOMENTAR"),
         ),
@@ -30,6 +35,7 @@ class ComentarList extends StatefulWidget {
   @override
   State<ComentarList> createState() => _ComentarListState();
 }
+
 class _ComentarListState extends State<ComentarList> {
   @override
   Widget build(BuildContext context) {
@@ -52,6 +58,7 @@ class _ComentarListState extends State<ComentarList> {
                   final komentar = komentarList[index];
                   return Card(
                     child: ListTile(
+                      leading: CircleAvatar(),
                       title: Text("User ${index + 1}"),
                       subtitle: Text(komentar.komentar.toString()),
                     ),

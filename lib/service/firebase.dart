@@ -114,4 +114,13 @@ class MenuService {
       }).toList();
     });
   }
+
+  Future<void> addKomentar(Komentar komen, String menuId) async {
+    Map<String, dynamic> newKomen = {
+      'komentar': komen.komentar,
+      'created_at': FieldValue.serverTimestamp(),
+      'update_at': FieldValue.serverTimestamp(),
+    };
+    await _notesCollection.doc(menuId).collection('komentar').add(newKomen);
+  }
 }
