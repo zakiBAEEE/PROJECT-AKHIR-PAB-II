@@ -10,7 +10,7 @@ void main() async {
   );
   runApp(
     const MaterialApp(
-      title: 'RedWine',
+      title: 'Anggur Merah',
       home: MyApp(),
     ),
   );
