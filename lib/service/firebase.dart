@@ -102,7 +102,7 @@ class MenuService {
   static Stream<List<Komentar>> getKomentarList(String menuId) {
     return _notesCollection
         .doc(menuId)
-        .collection('komentar')
+        .collection('komentar').orderBy('created_at', descending: true)
         .snapshots()
         .map((snapshot) {
       return snapshot.docs.map((doc) {
