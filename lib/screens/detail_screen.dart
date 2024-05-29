@@ -266,9 +266,7 @@ class _DetailPageState extends State<DetailPage> {
           const Spacer(),
           Text(
             'Details Food',
-            style: Theme.of(context).textTheme.headline6!.copyWith(
-                  color: Colors.white,
-                ),
+           
           ),
           const Spacer(),
           Row(
