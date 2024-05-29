@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:red_wine/models/menu.dart';
 import 'package:red_wine/screens/komentar_screen.dart';
 
@@ -264,9 +263,9 @@ class _DetailPageState extends State<DetailPage> {
             child: const BackButton(color: Colors.white),
           ),
           const Spacer(),
-          Text(
+         const Text(
             'Details Food',
-           
+           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           const Spacer(),
           Row(
@@ -291,7 +290,7 @@ class _DetailPageState extends State<DetailPage> {
                                   )),
                         );
                       },
-                      icon: Icon(Icons.comment_sharp),
+                      icon: const Icon(Icons.comment_sharp),
                     ),
                   ),
                 ),

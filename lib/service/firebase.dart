@@ -115,9 +115,9 @@ class MenuService {
     });
   }
 
-  Future<void> addKomentar(Komentar komen, String menuId) async {
+ static Future<void> addKomentar(String komen, String menuId) async {
     Map<String, dynamic> newKomen = {
-      'komentar': komen.komentar,
+      'komentar': komen,
       'created_at': FieldValue.serverTimestamp(),
       'update_at': FieldValue.serverTimestamp(),
     };
