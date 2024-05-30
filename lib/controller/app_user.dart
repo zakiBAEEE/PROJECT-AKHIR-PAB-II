@@ -16,7 +16,7 @@ class _MyAppState extends State<MyApp> {
   final TextEditingController _searchController = TextEditingController();
 
   final Tabs = [
-    const HomeScreen(),
+    const HomePage(),
     const MenuScreen(),
     const FavoriteMenuScreen(favoriteMenus: [],),
     const ProfileScreen()
