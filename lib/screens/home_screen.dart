@@ -21,17 +21,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Beranda'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.account_circle),
-            onPressed: () {
-              // Handle profile button press
-            },
-          ),
-        ],
-      ),
+    
       
       body: SingleChildScrollView(
         child: Column(
@@ -41,7 +31,7 @@ class _HomePageState extends State<HomePage> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Welcome, Pelanggan',
+                  'Welcome, pelanggan',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),

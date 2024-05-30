@@ -65,8 +65,8 @@ class _MyAppState extends State<MyApp> {
           BottomNavigationBarItem(
               icon: Icon(Icons.menu_book, color: Colors.black), label: 'Menu'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.library_books, color: Colors.black),
-              label: 'Favorite'),
+              icon: Icon(Icons.shopify, color: Colors.black),
+              label: 'Keranjang'),
           BottomNavigationBarItem(
               icon: Icon(Icons.account_box, color: Colors.black),
               label: 'Profile')
