@@ -1,21 +1,18 @@
-import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:path/path.dart' as path;
+// import 'package:firebase_storage/firebase_storage.dart';
 import 'package:red_wine/models/komentar.dart';
 import 'package:red_wine/models/menu.dart';
 
 class MenuService {
   static final FirebaseFirestore _database = FirebaseFirestore.instance;
-  static final CollectionReference _notesCollection =
-      _database.collection('menu');
-  static final FirebaseStorage _storage = FirebaseStorage.instance;
+  
+  // static final FirebaseStorage _storage = FirebaseStorage.instance;
 
-  static final CollectionReference _tokoCollection = _database.collection('toko');
+  static final CollectionReference _userCollection = _database.collection('toko');
 
   static Stream<List<Komentar>> getKomentarList(String produkId, String tokoId) {
-    return _tokoCollection.doc(tokoId).collection('produk').doc(produkId).collection('komentar').orderBy('created_at', descending: true)
+    return _userCollection.doc(tokoId).collection('produk').doc(produkId).collection('komentar').orderBy('created_at', descending: true)
         .snapshots()
         .map((snapshot) {
       return snapshot.docs.map((doc) {
@@ -33,11 +30,11 @@ class MenuService {
       'created_at': FieldValue.serverTimestamp(),
       'update_at': FieldValue.serverTimestamp(),
     };
-    await _tokoCollection.doc(tokoId).collection('produk').doc(produkId).collection('komentar').add(newKomen);
+    await _userCollection.doc(tokoId).collection('produk').doc(produkId).collection('komentar').add(newKomen);
         // await _notesCollection.doc(menuId).collection('komentar').add(newKomen);
   }
 static Stream<List<Menu>> getProdukList() {
-  return _tokoCollection.snapshots().asyncMap((snapshot) async {
+  return _userCollection.snapshots().asyncMap((snapshot) async {
     List<Menu> menuList = [];
     for (var doc in snapshot.docs) {
       QuerySnapshot menuSnapshot = await doc.reference.collection('produk').get();
@@ -67,6 +64,19 @@ static Stream<List<Menu>> getProdukList() {
   });
 }
 
+
+static Future<void> addUser(String idUser, String nama, String email, String jenisUser) async {
+
+    Map<String, dynamic> newUser = {
+      'idUser' : idUser,
+      'nama': nama,
+      'email' : email,
+      'jenisUser' : jenisUser,
+      'created_at': FieldValue.serverTimestamp(),
+      'update_at': FieldValue.serverTimestamp(),
+    };
+    await _userCollection.add(newUser);
+  }
 
 }
 

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:red_wine/screens/sign_in_screen.dart';
+import 'package:red_wine/service/firebase.dart';
 
 
 class SignUpScreen extends StatefulWidget {
@@ -12,6 +13,8 @@ class SignUpScreen extends StatefulWidget {
 class SignUpScreenState extends State<SignUpScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _namaController = TextEditingController();
+  final _jenisUserController = TextEditingController();
   String _errorMessage = '';
   
   @override
@@ -41,7 +44,20 @@ class SignUpScreenState extends State<SignUpScreen> {
                         color: Colors.white,
                       ),
                     ),
-                    const SizedBox(height: 32.0),
+                      const SizedBox(height: 32.0),
+                      TextField(
+                      controller: _namaController,
+                      decoration: const InputDecoration(
+                        labelText: 'Nama Anda',
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        ),
+                      ),
+                      obscureText: true,
+                    ),
+                    const SizedBox(height: 16.0),
                     TextField(
                       controller: _usernameController,
                       decoration: const InputDecoration(
@@ -66,32 +82,44 @@ class SignUpScreenState extends State<SignUpScreen> {
                       ),
                       obscureText: true,
                     ),
+                     TextField(
+                      controller: _jenisUserController,
+                      decoration: const InputDecoration(
+                        labelText: 'Jenis User',
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        ),
+                      ),
+                      obscureText: true,
+                    ),
                     const SizedBox(height: 16.0),
-                    // TextField(
-                    //   controller: _confirmPasswordController,
-                    //   decoration: const InputDecoration(
-                    //     labelText: 'Konfirmasi Password',
-                    //     filled: true,
-                    //     fillColor: Colors.white,
-                    //     border: OutlineInputBorder(
-                    //       borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    //     ),
-                    //   ),
-                    //   obscureText: true,
-                    // ),
-                    const SizedBox(height: 16.0),
+                  
+                    
                     ElevatedButton(
                       onPressed: () async {
                         try {
-                          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                        UserCredential userCredential =   await FirebaseAuth.instance.createUserWithEmailAndPassword(
                             email: _usernameController.text,
                             password: _passwordController.text,
                           );
+
+                                                  // Dapatkan ID pengguna dan alamat email
+    String idUser = userCredential.user!.uid;
+    String email = userCredential.user!.email!;
+
+    // Panggil fungsi addUser untuk menambahkan data pengguna baru ke Firestore
+    await MenuService.addUser(idUser, _namaController.text, email, 'jenisPengguna');
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
                                 builder: (context) => const SignInScreen()),
                           );
-                        } catch (error) {
+                        }
+                        
+                         
+                        
+                        catch (error) {
                           setState(() {
                             _errorMessage = error.toString();
                           });
