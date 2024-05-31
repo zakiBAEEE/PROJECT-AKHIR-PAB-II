@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:red_wine/controller/app_user.dart';
 import 'package:red_wine/screens/sign_up_screen.dart';
 import 'package:red_wine/screens/home_screen.dart';
 
@@ -75,7 +76,7 @@ class SignInScreenState extends State<SignInScreen> {
                           );
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
-                                builder: (context) => const HomePage()),
+                                builder: (context) => const MyApp()),
                           );
                         } catch (error) {
                           setState(() {

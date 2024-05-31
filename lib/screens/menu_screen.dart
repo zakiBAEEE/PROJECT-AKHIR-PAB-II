@@ -13,7 +13,7 @@ class _MenuScreenState extends State<MenuScreen> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: MenuService.getNoteList(),
+      stream: MenuService.getProdukList(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
@@ -64,7 +64,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         physics:
                             const NeverScrollableScrollPhysics(), // Menghindari konflik scrolling dengan SingleChildScrollView
                         children: makanan.map((document) {
-                          return CardMenu(menu: document, id: document.id!,);
+                          return CardMenu(menu: document, id: document.id!, idToko: document.idToko!,);
                         }).toList(),
                       ),
                     ],
@@ -91,7 +91,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         children: minuman.map((document) {
-                          return CardMenu(menu: document, id: document.id!,);
+                          return CardMenu(menu: document, id: document.id!, idToko: document.idToko!,);
                         }).toList(),
                       ),
                     ],

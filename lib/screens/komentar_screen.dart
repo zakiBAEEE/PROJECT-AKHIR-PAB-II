@@ -1,89 +1,12 @@
-// import 'package:flutter/material.dart';
-// import 'package:red_wine/service/firebase.dart';
-// import 'package:red_wine/widget/komentar_dialog.dart';
 
-// class ComentarScreen extends StatefulWidget {
-//   final String id;
-
-//   const ComentarScreen({super.key, required this.id});
-
-//   @override
-//   State<ComentarScreen> createState() => _ComentarScreenState();
-// }
-
-// class _ComentarScreenState extends State<ComentarScreen> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         floatingActionButton: FloatingActionButton(
-//           onPressed: () {
-//             Navigator.push(
-//               context,
-//               MaterialPageRoute(builder: (context) => KomentarDialog(id: widget.id)),
-//             );
-//           },
-//           tooltip: 'Tambah Komentarrrr',
-//           child: const Icon(Icons.add),
-//         ),
-//         appBar: AppBar(
-//           title: const Text("KOMENTAR"),
-//         ),
-//         body: ComentarList(
-//           id: widget.id,
-//         ));
-//   }
-// }
-
-// class ComentarList extends StatefulWidget {
-//   final String id;
-//   const ComentarList({super.key, required this.id});
-
-//   @override
-//   State<ComentarList> createState() => _ComentarListState();
-// }
-
-// class _ComentarListState extends State<ComentarList> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return StreamBuilder(
-//       stream: MenuService.getKomentarList(widget.id),
-//       builder: (context, snapshot) {
-//         if (snapshot.hasError) {
-//           return Center(child: Text('Error: ${snapshot.error}'));
-//         }
-//         switch (snapshot.connectionState) {
-//           case ConnectionState.waiting:
-//             return const Center(
-//               child: CircularProgressIndicator(),
-//             );
-//           default:
-//             final komentarList = snapshot.data!;
-//             return ListView.builder(
-//                 itemCount: komentarList.length,
-//                 itemBuilder: (context, index) {
-//                   final komentar = komentarList[index];
-//                   return Card(
-//                     child: ListTile(
-//                       leading: CircleAvatar(),
-//                       title: Text("User ${index + 1}"),
-//                       subtitle: Text(komentar.komentar.toString()),
-//                     ),
-//                   );
-//                 });
-//         }
-//       },
-//     );
-//   }
-// }
 
 import 'package:flutter/material.dart';
 import 'package:red_wine/service/firebase.dart';
-import 'package:red_wine/widget/komentar_dialog.dart';
 
 class ComentarScreen extends StatefulWidget {
   final String id;
-
-  const ComentarScreen({Key? key, required this.id}) : super(key: key);
+  final String idToko;
+  const ComentarScreen({Key? key, required this.id, required this.idToko}) : super(key: key);
 
   @override
   State<ComentarScreen> createState() => _ComentarScreenState();
@@ -97,7 +20,7 @@ class _ComentarScreenState extends State<ComentarScreen> {
         onPressed: () {
           showDialog(
             context: context,
-            builder: (context) => KomentarDialog(id: widget.id),
+            builder: (context) => KomentarDialog(id: widget.id, idToko: widget.idToko,),
           );
         },
         tooltip: 'Tambah Komentar',
@@ -108,6 +31,7 @@ class _ComentarScreenState extends State<ComentarScreen> {
       ),
       body: ComentarList(
         id: widget.id,
+        idToko: widget.idToko,
       ),
     );
   }
@@ -115,7 +39,8 @@ class _ComentarScreenState extends State<ComentarScreen> {
 
 class ComentarList extends StatefulWidget {
   final String id;
-  const ComentarList({Key? key, required this.id});
+  final String idToko;
+  const ComentarList({Key? key, required this.id, required this.idToko});
 
   @override
   State<ComentarList> createState() => _ComentarListState();
@@ -125,7 +50,7 @@ class _ComentarListState extends State<ComentarList> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: MenuService.getKomentarList(widget.id),
+      stream: MenuService.getKomentarList(widget.id, widget.idToko),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
@@ -158,8 +83,9 @@ class _ComentarListState extends State<ComentarList> {
 
 class KomentarDialog extends StatefulWidget {
   final String id;
+  final String idToko;
 
-  const KomentarDialog({Key? key, required this.id}) : super(key: key);
+  const KomentarDialog({Key? key, required this.id, required this.idToko}) : super(key: key);
 
   @override
   State<KomentarDialog> createState() => _KomentarDialogState();
@@ -190,7 +116,7 @@ class _KomentarDialogState extends State<KomentarDialog> {
         TextButton(
           onPressed: () {
             // handle tambah komentar
-            MenuService.addKomentar(_komentarController.text, widget.id);
+            MenuService.addKomentar(_komentarController.text, widget.id, widget.idToko);
             Navigator.of(context).pop();
           },
           child: Text('Tambah'),

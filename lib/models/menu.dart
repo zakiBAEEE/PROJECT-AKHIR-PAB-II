@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Menu {
+  String? idToko;
   String? id;
   final String title;
   String? imageUrl;
@@ -16,7 +17,8 @@ class Menu {
   Timestamp? updateAt;
 
   Menu(
-      {this.id,
+      {this.idToko,
+        this.id,
       required this.title,
       this.imageUrl,
       required this.description,
@@ -30,9 +32,10 @@ class Menu {
       this.createdAt,
       this.updateAt});
 
-  factory Menu.fromDocument(DocumentSnapshot doc) {
+  factory Menu.fromDocument(DocumentSnapshot doc, String idToko) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     return Menu(
+      idToko: idToko,
       id: doc.id,
       title: data['title'],
       imageUrl: data['imageUrl'],

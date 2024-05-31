@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:red_wine/screens/home_screen.dart';
 import 'package:red_wine/screens/menu_screen.dart';
 import 'package:red_wine/screens/profile_screen.dart';
 import 'package:red_wine/screens/favorite_screen.dart';
+import 'package:red_wine/screens/sign_in_screen.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -13,6 +15,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+Future<void> signOut(BuildContext context) async {
+ await FirebaseAuth.instance.signOut();
+ Navigator.of(context).pushReplacement(
+ MaterialPageRoute(builder: (context) => SignInScreen()));
+ }
+
+
   final TextEditingController _searchController = TextEditingController();
 
   final Tabs = [
@@ -26,6 +36,13 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [IconButton(
+ onPressed: () {
+ signOut(context);
+ },
+ icon: const Icon(Icons.logout),
+ ),
+],
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(

@@ -5,7 +5,8 @@ import 'package:red_wine/screens/komentar_screen.dart';
 class DetailPage extends StatefulWidget {
   final Menu menu;
   final String id;
-  const DetailPage({super.key, required this.menu, required this.id});
+  final String idToko;
+  const DetailPage({super.key, required this.menu, required this.id, required this.idToko});
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -286,7 +287,7 @@ class _DetailPageState extends State<DetailPage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => ComentarScreen(
-                                    id: widget.id,
+                                    id: widget.id, idToko: widget.idToko, 
                                   )),
                         );
                       },

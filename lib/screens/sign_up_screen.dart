@@ -12,7 +12,6 @@ class SignUpScreen extends StatefulWidget {
 class SignUpScreenState extends State<SignUpScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
   String _errorMessage = '';
   
   @override
@@ -68,23 +67,23 @@ class SignUpScreenState extends State<SignUpScreen> {
                       obscureText: true,
                     ),
                     const SizedBox(height: 16.0),
-                    TextField(
-                      controller: _confirmPasswordController,
-                      decoration: const InputDecoration(
-                        labelText: 'Konfirmasi Password',
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-                      ),
-                      obscureText: true,
-                    ),
+                    // TextField(
+                    //   controller: _confirmPasswordController,
+                    //   decoration: const InputDecoration(
+                    //     labelText: 'Konfirmasi Password',
+                    //     filled: true,
+                    //     fillColor: Colors.white,
+                    //     border: OutlineInputBorder(
+                    //       borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    //     ),
+                    //   ),
+                    //   obscureText: true,
+                    // ),
                     const SizedBox(height: 16.0),
                     ElevatedButton(
                       onPressed: () async {
                         try {
-                          await FirebaseAuth.instance.signInWithEmailAndPassword(
+                          await FirebaseAuth.instance.createUserWithEmailAndPassword(
                             email: _usernameController.text,
                             password: _passwordController.text,
                           );
@@ -111,7 +110,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                       ),
-                      child: const Text('Register'),
+                      child: const Text('Sign Up'),
                     ),
                     const SizedBox(height: 16.0),
                     TextButton(
