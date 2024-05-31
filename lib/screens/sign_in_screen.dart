@@ -19,9 +19,10 @@ class SignInScreenState extends State<SignInScreen> {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          image:DecorationImage(
-            colorFilter: ColorFilter.mode(Colors.grey, BlendMode.multiply),
-            image: AssetImage(Assets.bgpic),fit : BoxFit.cover)), // Ganti dengan gambar latar belakang nanti
+            image: DecorationImage(
+                colorFilter: ColorFilter.mode(Colors.grey, BlendMode.multiply),
+                image: AssetImage(Assets.bgpic),
+                fit: BoxFit.cover)), // Ganti dengan gambar latar belakang nanti
         child: Center(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
@@ -33,7 +34,7 @@ class SignInScreenState extends State<SignInScreen> {
                     const SizedBox(height: 32.0),
                     Image.asset(
                       'assets/logo.png', // Ganti dengan path logo Anda
-                      height: 100,
+                      height: 200,
                     ),
                     const SizedBox(height: 16.0),
                     const Text(
@@ -73,7 +74,8 @@ class SignInScreenState extends State<SignInScreen> {
                     ElevatedButton(
                       onPressed: () async {
                         try {
-                          await FirebaseAuth.instance.signInWithEmailAndPassword(
+                          await FirebaseAuth.instance
+                              .signInWithEmailAndPassword(
                             email: _usernameController.text,
                             password: _passwordController.text,
                           );
@@ -94,8 +96,8 @@ class SignInScreenState extends State<SignInScreen> {
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 50.0, vertical: 15.0), 
-                            backgroundColor: Colors.green, // Warna tombol login
+                            horizontal: 50.0, vertical: 15.0),
+                        backgroundColor: Colors.green, // Warna tombol login
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
@@ -131,6 +133,3 @@ class SignInScreenState extends State<SignInScreen> {
     );
   }
 }
-
-
-
