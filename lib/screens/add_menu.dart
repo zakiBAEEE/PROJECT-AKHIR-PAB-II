@@ -45,7 +45,7 @@ class _AddMenuState extends State<AddMenu> {
             SizedBox(height: 20),
             TextField(
               controller: _namaController,
-              decoration: InputDecoration(
+              decoration:  InputDecoration(
                 labelText: 'Nama Makanan',
                 style: TextStyle(color: Colors.black),
               ),
@@ -54,7 +54,11 @@ class _AddMenuState extends State<AddMenu> {
             SizedBox(height: 20),
             TextField(
               controller: _hargaController,
+<<<<<<< HEAD
               decoration: InputDecoration(
+=======
+              decoration:  InputDecoration(
+>>>>>>> 867bd096adc9a3345cecf83fa3e01fe68fe85a30
                 labelText: 'Harga',
                 style: TextStyle(color: Colors.black),
               ),
