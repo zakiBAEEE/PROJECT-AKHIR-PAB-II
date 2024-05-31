@@ -25,14 +25,18 @@ class _AddMenuState extends State<AddMenu> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Gambar:'),
+            const Text('Gambar:',
+              style: TextStyle(color: Colors.black),
+            ),
             Row(
               children: [
                 ElevatedButton(
                   onPressed: () {
                     // Implementasi untuk memilih file
                   },
-                  child: Text('Choose File'),
+                  child: Text('Choose File',
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
                 SizedBox(width: 10),
                 Text(_imagePath ?? 'Pempek kulit.png'),
@@ -43,6 +47,7 @@ class _AddMenuState extends State<AddMenu> {
               controller: _namaController,
               decoration: InputDecoration(
                 labelText: 'Nama Makanan',
+                style: TextStyle(color: Colors.black),
               ),
               style: TextStyle(color: Colors.black),
             ),
@@ -51,7 +56,7 @@ class _AddMenuState extends State<AddMenu> {
               controller: _hargaController,
               decoration: const InputDecoration(
                 labelText: 'Harga',
-                labelStyle: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.black),
               ),
               style: TextStyle(color: Colors.black),
             ),
@@ -71,7 +76,10 @@ class _AddMenuState extends State<AddMenu> {
                 onPressed: () {
                   // Implementasi untuk menambah makanan
                 },
-                child: const Text('Tambah Makanan'),
+                child: const Text('Tambah Makanan',
+                  style: TextStyle(color: Colors.black),
+                ),
+                
               ),
             ),
           ],
