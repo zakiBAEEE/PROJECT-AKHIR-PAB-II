@@ -8,7 +8,6 @@ class AddMenu extends StatefulWidget {
 }
 
 class _AddMenuState extends State<AddMenu> {
-
   final TextEditingController _namaController = TextEditingController();
   final TextEditingController _hargaController = TextEditingController();
   final TextEditingController _deskripsiController = TextEditingController();
@@ -19,73 +18,114 @@ class _AddMenuState extends State<AddMenu> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Tambah Makanan'),
+        backgroundColor: Colors.cyan,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Gambar:',
-              style: TextStyle(color: Colors.black),
-            ),
-            Row(
-              children: [
-                ElevatedButton(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Form(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      // Implementasi untuk memilih file
+                    },
+                    child: Text(
+                      'Choose File',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Text(
+                    _imagePath ?? 'Pempek kulit.png',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ],
+              ),
+              const Padding(
+                padding: EdgeInsets.only(left: 16, bottom: 8),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Nama Makanan',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: TextFormField(
+                  controller: _namaController,
+                  decoration: const InputDecoration(
+                    labelText: 'Nama Makanan',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(left: 16, bottom: 8),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Harga',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: TextFormField(
+                  controller: _hargaController,
+                  decoration: InputDecoration(
+                    labelText: 'Harga',
+                    border: const OutlineInputBorder(),
+                  ),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(left: 16, bottom: 8),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Deskripsi',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: TextFormField(
+                  controller: _deskripsiController,
+                  decoration: InputDecoration(
+                    labelText: 'Deskripsi',
+                    border: const OutlineInputBorder(),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Center(
+                child: ElevatedButton(
                   onPressed: () {
-                    // Implementasi untuk memilih file
+                    // Implementasi untuk menambah makanan
                   },
-                  child: Text('Choose File',
+                  child: Text('Tambah Makanan',
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
-                SizedBox(width: 10),
-                Text(_imagePath ?? 'Pempek kulit.png'),
-              ],
-            ),
-            SizedBox(height: 20),
-            TextField(
-              controller: _namaController,
-              decoration: InputDecoration(
-                labelText: 'Nama Makanan',
-                style: TextStyle(color: Colors.black),
               ),
-              style: TextStyle(color: Colors.black),
-            ),
-            SizedBox(height: 20),
-            TextField(
-              controller: _hargaController,
-              decoration: const InputDecoration(
-                labelText: 'Harga',
-                style: TextStyle(color: Colors.black),
-              ),
-              style: TextStyle(color: Colors.black),
-            ),
-            SizedBox(height: 20),
-            TextField(
-              controller: _deskripsiController,
-              maxLines: 4,
-              decoration: InputDecoration(
-                labelText: 'Deskripsi',
-                labelStyle: TextStyle(color: Colors.black),
-              ),
-              style: TextStyle(color: Colors.black),
-            ),
-            SizedBox(height: 20),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  // Implementasi untuk menambah makanan
-                },
-                child: const Text('Tambah Makanan',
-                  style: TextStyle(color: Colors.black),
-                ),
-                
-              ),
-            ),
-          ],
+            ],
+          )),
         ),
       ),
     );
   }
-
 }
