@@ -21,7 +21,7 @@ class User {
   factory User.fromDocument(DocumentSnapshot doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     return User(
-      idUser: doc.id,
+      idUser: data['idUser'],
       nama: data['nama'],
       email: data['email'],
       jenisUser: data['jenisUser'],
@@ -37,6 +37,7 @@ class User {
       'email' : email,
       'jenisUser' : jenisUser,
       'imageUrl' : imageUrl,
+      'idUser' : idUser,
       'created_at': createdAt,
       'update_at': updateAt,
     };

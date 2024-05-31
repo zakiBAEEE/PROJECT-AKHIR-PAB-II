@@ -110,7 +110,7 @@ class SignUpScreenState extends State<SignUpScreen> {
     String email = userCredential.user!.email!;
 
     // Panggil fungsi addUser untuk menambahkan data pengguna baru ke Firestore
-    await MenuService.addUser(idUser, _namaController.text, email, 'jenisPengguna');
+    await MenuService.addUser(idUser, _namaController.text, email, _jenisUserController.text);
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
                                 builder: (context) => const SignInScreen()),

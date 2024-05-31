@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:firebase_storage/firebase_storage.dart';
 import 'package:red_wine/models/komentar.dart';
 import 'package:red_wine/models/menu.dart';
+import 'package:red_wine/models/user.dart';
 
 class MenuService {
   static final FirebaseFirestore _database = FirebaseFirestore.instance;
@@ -78,6 +79,21 @@ static Future<void> addUser(String idUser, String nama, String email, String jen
     await _userCollection.add(newUser);
   }
 
+static Stream<User> getUser(String idUser) {
+  return _userCollection
+      .where('idUser', isEqualTo: idUser)
+      .snapshots()
+      .map((snapshot) {
+      var doc = snapshot.docs.first;
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+      return User(
+        idUser: data['idUser'],
+        nama: data['nama'],
+        email: data['email'],
+        jenisUser: data['jenisUser'],
+      );
+  });
+}
 }
 
 
