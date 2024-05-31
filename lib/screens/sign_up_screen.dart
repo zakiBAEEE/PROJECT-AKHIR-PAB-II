@@ -55,7 +55,6 @@ class SignUpScreenState extends State<SignUpScreen> {
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
                       ),
-                      obscureText: true,
                     ),
                     const SizedBox(height: 16.0),
                     TextField(
@@ -82,6 +81,8 @@ class SignUpScreenState extends State<SignUpScreen> {
                       ),
                       obscureText: true,
                     ),
+                                        const SizedBox(height: 16.0),
+
                      TextField(
                       controller: _jenisUserController,
                       decoration: const InputDecoration(
@@ -92,7 +93,6 @@ class SignUpScreenState extends State<SignUpScreen> {
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
                       ),
-                      obscureText: true,
                     ),
                     const SizedBox(height: 16.0),
                   
