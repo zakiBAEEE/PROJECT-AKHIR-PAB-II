@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:red_wine/models/assets.dart';
 import 'package:red_wine/screens/sign_up_screen.dart';
 import 'package:red_wine/screens/home_screen.dart';
 
@@ -17,7 +18,10 @@ class SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.yellow, // Ganti dengan gambar latar belakang nanti
+        decoration: const BoxDecoration(
+          image:DecorationImage(
+            colorFilter: ColorFilter.mode(Colors.grey, BlendMode.multiply),
+            image: AssetImage(Assets.bgpic),fit : BoxFit.cover)), // Ganti dengan gambar latar belakang nanti
         child: Center(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
@@ -109,7 +113,7 @@ class SignInScreenState extends State<SignInScreen> {
                       },
                       child: const Text(
                         'Don\'t have an account? Sign up',
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.black),
                       ),
                     ),
                     const SizedBox(height: 162.0),
@@ -117,7 +121,7 @@ class SignInScreenState extends State<SignInScreen> {
                 ),
                 const Text(
                   'By Kelompok Pempek RedWine',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.black),
                 ),
               ],
             ),
