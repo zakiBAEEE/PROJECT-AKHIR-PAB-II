@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:red_wine/screens/home_screen.dart';
 import 'package:red_wine/screens/menu_screen.dart';
-import 'package:red_wine/screens/order_screen.dart';
 import 'package:red_wine/screens/profile_screen.dart';
+import 'package:red_wine/screens/favorite_screen.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -16,9 +16,9 @@ class _MyAppState extends State<MyApp> {
   final TextEditingController _searchController = TextEditingController();
 
   final Tabs = [
-    const HomeScreen(),
+    const HomePage(),
     const MenuScreen(),
-    const OrderScreen(),
+    const FavoriteMenuScreen(favoriteMenus: [],),
     const ProfileScreen()
   ];
   int currentTabIndex = 0;
@@ -65,8 +65,8 @@ class _MyAppState extends State<MyApp> {
           BottomNavigationBarItem(
               icon: Icon(Icons.menu_book, color: Colors.black), label: 'Menu'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.library_books, color: Colors.black),
-              label: 'Order'),
+              icon: Icon(Icons.shopify, color: Colors.black),
+              label: 'Keranjang'),
           BottomNavigationBarItem(
               icon: Icon(Icons.account_box, color: Colors.black),
               label: 'Profile')

@@ -56,13 +56,13 @@ class _CardMenuState extends State<CardMenu> {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   softWrap: false,
-                  style: Theme.of(context).textTheme.caption)),
+                 )),
           SizedBox(
               child: Text(widget.menu.title,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   softWrap: false,
-                  style: Theme.of(context).textTheme.bodyText2)),
+                  )),
          const Padding(
             padding: const EdgeInsets.symmetric(vertical: 2.0),
             // child: ColorIndicatorView(product: product),
@@ -73,8 +73,7 @@ class _CardMenuState extends State<CardMenu> {
                   maxLines: 1,
                   overflow: TextOverflow.clip,
                   softWrap: false,
-                  style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                      fontWeight: FontWeight.bold, color: Colors.orange[400])),
+                 ),
               if (true)
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
@@ -82,10 +81,7 @@ class _CardMenuState extends State<CardMenu> {
                       maxLines: 1,
                       overflow: TextOverflow.clip,
                       softWrap: false,
-                      style: Theme.of(context)
-                          .textTheme
-                          .caption
-                          ?.copyWith(decoration: TextDecoration.lineThrough)),
+                      ),
                 ),
             ],
           ),
