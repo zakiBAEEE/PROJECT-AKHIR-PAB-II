@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:red_wine/models/menu.dart';
 
-class FavoriteMenuItem extends StatefulWidget {
+class CardCart extends StatefulWidget {
   final Menu menu;
   final String id;
 
-  const FavoriteMenuItem({super.key, 
+  const CardCart({super.key, 
     required this.menu, 
     required this.id,
   });
 
   @override
-  State<FavoriteMenuItem> createState() => _FavoriteMenuItemState();
+  State<CardCart> createState() => _CardCartState();
 }
 
-class _FavoriteMenuItemState extends State<FavoriteMenuItem> {
+class _CardCartState extends State<CardCart> {
   @override
   Widget build(BuildContext context) {
     return Card(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:red_wine/models/menu.dart';
-import 'package:red_wine/widget/card_favorite.dart';
+import 'package:red_wine/widget/card_cart.dart';
 
 class FavoriteMenuScreen extends StatelessWidget {
   final List<Menu> favoriteMenus;
@@ -17,7 +17,7 @@ class FavoriteMenuScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Menu Favorite Anda',
+              'Keranjang Anda',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
@@ -25,7 +25,7 @@ class FavoriteMenuScreen extends StatelessWidget {
               child: ListView.builder(
                 itemCount: favoriteMenus.length,
                 itemBuilder: (context, index) {
-                  return FavoriteMenuItem(
+                  return CardCart(
                     menu: favoriteMenus[index],
                     id: index.toString(),
                   );
