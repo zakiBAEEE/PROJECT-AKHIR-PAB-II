@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:red_wine/widget/profile_info_item.dart';
+import 'package:red_wine/screens/add_menu.dart';
+import 'package:red_wine/screens/edit_menu.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -106,20 +108,7 @@ class _MyWidgetState extends State<ProfileScreen> {
                 Divider(
                   color: Colors.deepPurple[100],
                 ),
-                const SizedBox(
-                  height: 4,
-                ),
-                const ProfileInfoItem(
-                  icon: Icons.favorite,
-                  label: "Favorit",
-                  value: "100",
-                  iconColor: Colors.red,
-                ),
 
-                //Penutup
-                const SizedBox(
-                  height: 4,
-                ),
                 Divider(
                   color: Colors.deepPurple[100],
                 ),
@@ -138,7 +127,8 @@ class _MyWidgetState extends State<ProfileScreen> {
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
                               fixedSize: Size(200, 40),
-                              backgroundColor: Colors.amber),
+                              backgroundColor:
+                                  const Color.fromARGB(255, 57, 255, 7)),
                           child: const Text(
                             "Sign Out",
                             style:
@@ -165,7 +155,59 @@ class _MyWidgetState extends State<ProfileScreen> {
                       ],
                     ),
                   ],
-                )
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ButtonBar(
+                      alignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const AddMenu()),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                              fixedSize: Size(200, 40),
+                              backgroundColor:
+                                  const Color.fromARGB(255, 57, 255, 7)),
+                          child: const Text(
+                            "Add menu",
+                            style:
+                                TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                          ),
+                        ),
+                      ],
+                    ),
+                    ButtonBar(
+                      alignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const EditMenu()),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                              fixedSize: Size(200, 40),
+                              backgroundColor:
+                                  const Color.fromARGB(255, 57, 255, 7)),
+                          child: const Text(
+                            "Edit Menu",
+                            style:
+                                TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ],
             ),
           ),

@@ -36,11 +36,7 @@ class _AddMenuState extends State<AddMenu> {
               child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Material(
-            color: Colors.black.withOpacity(0.3),
-            borderRadius: BorderRadius.circular(8),
-            child: const BackButton(color: Colors.white),
-          ),
+              
               Row(
                 children: [
                   ElevatedButton(

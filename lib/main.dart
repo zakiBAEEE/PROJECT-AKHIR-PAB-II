@@ -13,7 +13,7 @@ void main() async {
   runApp(
     const MaterialApp(
       title: 'Anggur Merah',
-      home: EditMenu(),
+      home: MyApp(),
     ),
   );
 }
