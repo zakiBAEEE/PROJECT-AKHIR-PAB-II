@@ -45,7 +45,7 @@ class _AddMenuState extends State<AddMenu> {
             SizedBox(height: 20),
             TextField(
               controller: _namaController,
-              decoration: InputDecoration(
+              decoration:  InputDecoration(
                 labelText: 'Nama Makanan',
                 style: TextStyle(color: Colors.black),
               ),
@@ -54,7 +54,7 @@ class _AddMenuState extends State<AddMenu> {
             SizedBox(height: 20),
             TextField(
               controller: _hargaController,
-              decoration: const InputDecoration(
+              decoration:  InputDecoration(
                 labelText: 'Harga',
                 style: TextStyle(color: Colors.black),
               ),
