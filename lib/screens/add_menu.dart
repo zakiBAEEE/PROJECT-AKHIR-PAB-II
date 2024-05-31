@@ -31,12 +31,10 @@ class _AddMenuState extends State<AddMenu> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),
-          
           child: Form(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              
               Row(
                 children: [
                   ElevatedButton(
