@@ -70,7 +70,7 @@ class _ComentarListState extends State<ComentarList> {
                 return Card(
                   child: ListTile(
                     leading: CircleAvatar(
-                      radius: 50,
+                      radius: 30,
                       child: ClipOval(
                           child: komentar.imageUrl != null && komentar.imageUrl != ""
                               ? CachedNetworkImage(
