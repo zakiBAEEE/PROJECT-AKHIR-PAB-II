@@ -8,8 +8,6 @@ import 'package:red_wine/models/user.dart';
 class MenuService {
   static final FirebaseFirestore _database = FirebaseFirestore.instance;
   
-  // static final FirebaseStorage _storage = FirebaseStorage.instance;
-
   static final CollectionReference _userCollection = _database.collection('toko');
 
   static Stream<List<Komentar>> getKomentarList(String produkId, String tokoId) {
@@ -100,6 +98,26 @@ static Stream<User> getUser(String idUser) {
       );
   });
 }
+
+ static Future<void> updateUser(User user, String idToko) async {
+    Map<String, dynamic> updateUser = {
+      'nama' : user.nama,
+      'email' : user.email,
+      'imageUrl' : user.imageUrl,
+      'created_at': user.createdAt,
+      'updated_at': FieldValue.serverTimestamp(),
+    };
+
+     QuerySnapshot querySnapshot = await _userCollection.where('idUser', isEqualTo: user.idUser).get();
+
+  // Iterasi melalui hasil pencarian
+  for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+    // Mendapatkan id dokumen
+    String docId = doc.id;
+    // Memperbarui dokumen dengan id yang ditemukan
+    await _userCollection.doc(docId).update(updateUser);
+  }
+
 }
 
-
+}

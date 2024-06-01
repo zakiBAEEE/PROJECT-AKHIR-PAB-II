@@ -33,6 +33,7 @@ class User {
 
   Map<String, dynamic> toDocument() {
     return {
+      'idUser' : idUser,
       'nama' : nama,
       'email' : email,
       'jenisUser' : jenisUser,
