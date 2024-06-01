@@ -4,10 +4,8 @@ import 'package:red_wine/screens/detail_screen.dart';
 
 class CardMenu extends StatefulWidget {
   final Menu menu;
-  final String id;
-  final String idToko;
 
-  const CardMenu({super.key, required this.menu, required this.id, required this.idToko});
+  const CardMenu({super.key, required this.menu});
 
   @override
   State<CardMenu> createState() => _CardMenuState();
@@ -20,7 +18,7 @@ class _CardMenuState extends State<CardMenu> {
       onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => DetailPage(menu: widget.menu, id: widget.id, idToko: widget.idToko,)),
+              MaterialPageRoute(builder: (context) => DetailPage(menu: widget.menu, id: widget.menu.id!, idToko: widget.menu.idToko!,)),
             );
           },
       child: SizedBox(

@@ -64,7 +64,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         physics:
                             const NeverScrollableScrollPhysics(), // Menghindari konflik scrolling dengan SingleChildScrollView
                         children: makanan.map((document) {
-                          return CardMenu(menu: document, id: document.id!, idToko: document.idToko!,);
+                          return CardMenu(menu: document);
                         }).toList(),
                       ),
                     ],
@@ -91,7 +91,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         children: minuman.map((document) {
-                          return CardMenu(menu: document, id: document.id!, idToko: document.idToko!,);
+                          return CardMenu(menu: document);
                         }).toList(),
                       ),
                     ],

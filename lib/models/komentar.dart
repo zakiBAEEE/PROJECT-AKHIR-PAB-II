@@ -3,12 +3,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Komentar {
   String? id;
   String? komentar;
+  String? namaPengguna;
   Timestamp? createdAt;
   Timestamp? updateAt;
 
   Komentar(
       {this.id,
       this.komentar,
+      this.namaPengguna,
       this.createdAt,
       this.updateAt});
 
@@ -17,6 +19,7 @@ class Komentar {
     return Komentar(
       id: doc.id,
       komentar: data['komentar'],
+      namaPengguna: data['namaPengguna'],
       createdAt: data['created_at'] as Timestamp,
       updateAt: data['update_at'] as Timestamp,
     );
@@ -25,6 +28,7 @@ class Komentar {
   Map<String, dynamic> toDocument() {
     return {
       'komentar' : komentar,
+      'namaPengguna': namaPengguna,
       'created_at': createdAt,
       'update_at': updateAt,
     };

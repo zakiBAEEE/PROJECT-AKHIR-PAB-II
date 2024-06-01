@@ -20,7 +20,7 @@ class _ComentarScreenState extends State<ComentarScreen> {
         onPressed: () {
           showDialog(
             context: context,
-            builder: (context) => KomentarDialog(id: widget.id, idToko: widget.idToko,),
+            builder: (context) => KomentarDialog(id: widget.id, idToko: widget.idToko),
           );
         },
         tooltip: 'Tambah Komentar',
@@ -40,7 +40,7 @@ class _ComentarScreenState extends State<ComentarScreen> {
 class ComentarList extends StatefulWidget {
   final String id;
   final String idToko;
-  const ComentarList({Key? key, required this.id, required this.idToko});
+  const ComentarList({Key? key, required this.id, required this.idToko,});
 
   @override
   State<ComentarList> createState() => _ComentarListState();
@@ -69,7 +69,7 @@ class _ComentarListState extends State<ComentarList> {
                 return Card(
                   child: ListTile(
                     leading: CircleAvatar(),
-                    title: Text("User ${index + 1}"),
+                    title: Text(komentar.namaPengguna.toString()),
                     subtitle: Text(komentar.komentar.toString()),
                   ),
                 );
@@ -84,7 +84,6 @@ class _ComentarListState extends State<ComentarList> {
 class KomentarDialog extends StatefulWidget {
   final String id;
   final String idToko;
-
   const KomentarDialog({Key? key, required this.id, required this.idToko}) : super(key: key);
 
   @override
@@ -116,7 +115,7 @@ class _KomentarDialogState extends State<KomentarDialog> {
         TextButton(
           onPressed: () {
             // handle tambah komentar
-            MenuService.addKomentar(_komentarController.text, widget.id, widget.idToko);
+            // MenuService.addKomentar(_komentarController.text, widget.id, widget.idToko, widget.namaPengguna);
             Navigator.of(context).pop();
           },
           child: Text('Tambah'),

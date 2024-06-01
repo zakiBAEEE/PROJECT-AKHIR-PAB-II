@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:red_wine/models/menu.dart';
 import 'package:red_wine/screens/komentar_screen.dart';
+import 'package:red_wine/service/firebase.dart';
 
 class DetailPage extends StatefulWidget {
   final Menu menu;
@@ -254,6 +256,7 @@ class _DetailPageState extends State<DetailPage> {
   }
 
   Widget header() {
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
@@ -287,7 +290,7 @@ class _DetailPageState extends State<DetailPage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => ComentarScreen(
-                                    id: widget.id, idToko: widget.idToko, 
+                                    id: widget.id, idToko: widget.idToko
                                   )),
                         );
                       },
