@@ -1,12 +1,12 @@
 
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:red_wine/models/menu.dart';
 import 'package:red_wine/service/firebase.dart';
 
 class ComentarScreen extends StatefulWidget {
-  final String id;
-  final String idToko;
-  const ComentarScreen({Key? key, required this.id, required this.idToko}) : super(key: key);
+    final Menu menu;
+  const ComentarScreen({Key? key, required this.menu}) : super(key: key);
 
   @override
   State<ComentarScreen> createState() => _ComentarScreenState();
@@ -20,7 +20,7 @@ class _ComentarScreenState extends State<ComentarScreen> {
         onPressed: () {
           showDialog(
             context: context,
-            builder: (context) => KomentarDialog(id: widget.id, idToko: widget.idToko),
+            builder: (context) => KomentarDialog(id: widget.menu.id!, idToko: widget.menu.idToko!),
           );
         },
         tooltip: 'Tambah Komentar',
@@ -30,8 +30,8 @@ class _ComentarScreenState extends State<ComentarScreen> {
         title: const Text("KOMENTAR"),
       ),
       body: ComentarList(
-        id: widget.id,
-        idToko: widget.idToko,
+        id: widget.menu.id!,
+        idToko: widget.menu.idToko!,
       ),
     );
   }
@@ -114,9 +114,18 @@ class _KomentarDialogState extends State<KomentarDialog> {
         ),
         TextButton(
           onPressed: () {
-            // handle tambah komentar
-            // MenuService.addKomentar(_komentarController.text, widget.id, widget.idToko, widget.namaPengguna);
-            Navigator.of(context).pop();
+             String idUser = FirebaseAuth.instance.currentUser!.uid;
+             Stream userStream = MenuService.getUser(idUser);
+
+         userStream.listen((dynamic haha) {
+
+            String namaPengguna = haha.nama;
+            MenuService.addKomentar(_komentarController.text, widget.id, widget.idToko, namaPengguna);
+  },);
+
+  
+         Navigator.of(context).pop();
+
           },
           child: Text('Tambah'),
         ),
@@ -124,3 +133,5 @@ class _KomentarDialogState extends State<KomentarDialog> {
     );
   }
 }
+
+

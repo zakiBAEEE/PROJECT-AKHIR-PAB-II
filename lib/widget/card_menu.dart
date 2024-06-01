@@ -4,7 +4,6 @@ import 'package:red_wine/screens/detail_screen.dart';
 
 class CardMenu extends StatefulWidget {
   final Menu menu;
-
   const CardMenu({super.key, required this.menu});
 
   @override
@@ -18,7 +17,7 @@ class _CardMenuState extends State<CardMenu> {
       onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => DetailPage(menu: widget.menu, id: widget.menu.id!, idToko: widget.menu.idToko!,)),
+              MaterialPageRoute(builder: (context) => DetailPage(menu: widget.menu)),
             );
           },
       child: SizedBox(

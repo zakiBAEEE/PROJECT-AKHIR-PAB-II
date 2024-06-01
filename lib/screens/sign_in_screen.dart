@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:red_wine/controller/app_user.dart';
 import 'package:red_wine/screens/sign_up_screen.dart';
+import 'package:red_wine/service/firebase.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -73,9 +74,12 @@ class SignInScreenState extends State<SignInScreen> {
                             email: _usernameController.text,
                             password: _passwordController.text,
                           );
+
+                         
+
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
-                                builder: (context) => const MyApp()),
+                                builder: (context) => MyApp()),
                           );
                         } catch (error) {
                           setState(() {

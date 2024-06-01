@@ -1,14 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:red_wine/models/menu.dart';
 import 'package:red_wine/screens/komentar_screen.dart';
-import 'package:red_wine/service/firebase.dart';
 
 class DetailPage extends StatefulWidget {
   final Menu menu;
-  final String id;
-  final String idToko;
-  const DetailPage({super.key, required this.menu, required this.id, required this.idToko});
+  const DetailPage({super.key, required this.menu});
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -290,7 +286,7 @@ class _DetailPageState extends State<DetailPage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => ComentarScreen(
-                                    id: widget.id, idToko: widget.idToko
+                                    menu: widget.menu
                                   )),
                         );
                       },

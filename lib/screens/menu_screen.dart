@@ -3,7 +3,8 @@ import 'package:red_wine/service/firebase.dart';
 import 'package:red_wine/widget/card_menu.dart';
 
 class MenuScreen extends StatefulWidget {
-  const MenuScreen({super.key});
+  const MenuScreen({Key? key}) : super(key: key);
+
 
   @override
   State<MenuScreen> createState() => _MenuScreenState();

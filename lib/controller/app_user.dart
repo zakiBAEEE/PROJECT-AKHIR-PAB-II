@@ -7,6 +7,7 @@ import 'package:red_wine/screens/favorite_screen.dart';
 import 'package:red_wine/screens/sign_in_screen.dart';
 
 class MyApp extends StatefulWidget {
+  
   const MyApp({Key? key}) : super(key: key);
 
   @override
@@ -16,7 +17,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-Future<void> signOut(BuildContext context) async {
+  
+Future<void>signOut(BuildContext context) async {
  await FirebaseAuth.instance.signOut();
  Navigator.of(context).pushReplacement(
  MaterialPageRoute(builder: (context) => SignInScreen()));
@@ -27,7 +29,7 @@ Future<void> signOut(BuildContext context) async {
 
   final Tabs = [
     const HomePage(),
-    const MenuScreen(),
+     MenuScreen(),
     const FavoriteMenuScreen(favoriteMenus: [],),
     const ProfileScreen()
   ];
@@ -92,3 +94,5 @@ Future<void> signOut(BuildContext context) async {
     );
   }
 }
+
+
