@@ -21,9 +21,9 @@ class _AddMenuState extends State<AddMenu> {
         title: Text('Tambah Makanan'),
         backgroundColor: const Color.fromARGB(255, 7, 202, 128),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const BackButton(color: Colors.white,),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.of(context).pop();
           },
         ),
       ),

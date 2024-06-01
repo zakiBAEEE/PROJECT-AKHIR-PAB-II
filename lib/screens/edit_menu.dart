@@ -17,12 +17,12 @@ class _EditMenuState extends State<EditMenu> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tambah Makanan'),
+        title: Text('Edit Makanan'),
         backgroundColor: const Color.fromARGB(255, 7, 202, 128),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.of(context).pop();
           },
         ),
       ),

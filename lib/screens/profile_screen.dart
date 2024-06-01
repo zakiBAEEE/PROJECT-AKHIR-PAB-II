@@ -200,11 +200,10 @@ class _MyWidgetState extends State<ProfileScreen> {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const AddMenu()),
-                            );
+                            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AddMenu()),
+            );
                           },
                           style: ElevatedButton.styleFrom(
                               fixedSize: Size(200, 40),
@@ -223,11 +222,10 @@ class _MyWidgetState extends State<ProfileScreen> {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const EditMenu()),
-                            );
+                           Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => EditMenu()),
+            );
                           },
                           style: ElevatedButton.styleFrom(
                               fixedSize: Size(200, 40),
