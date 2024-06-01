@@ -75,6 +75,7 @@ static Future<void> addUser(String idUser, String nama, String email, String jen
       'nama': nama,
       'email' : email,
       'jenisUser' : jenisUser,
+      'imageUrl' : "",
       'created_at': FieldValue.serverTimestamp(),
       'update_at': FieldValue.serverTimestamp(),
     };
@@ -92,6 +93,7 @@ static Stream<User> getUser(String idUser) {
         idUser: data['idUser'],
         nama: data['nama'],
         email: data['email'],
+        imageUrl: data['imageUrl'],
         jenisUser: data['jenisUser'],
       );
   });
