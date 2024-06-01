@@ -1,14 +1,22 @@
 
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:red_wine/models/komentar.dart';
 import 'package:red_wine/models/menu.dart';
 import 'package:red_wine/models/user.dart';
+import 'package:path/path.dart' as path;
+
 
 class MenuService {
   static final FirebaseFirestore _database = FirebaseFirestore.instance;
   
   static final CollectionReference _userCollection = _database.collection('toko');
+
+  static final FirebaseStorage _storage = FirebaseStorage.instance;
 
   static Stream<List<Komentar>> getKomentarList(String produkId, String tokoId) {
     return _userCollection.doc(tokoId).collection('produk').doc(produkId).collection('komentar').orderBy('created_at', descending: true)
@@ -99,11 +107,13 @@ static Stream<User> getUser(String idUser) {
   });
 }
 
- static Future<void> updateUser(User user, String idToko) async {
+ static Future<void> updateUser(User user) async {
     Map<String, dynamic> updateUser = {
+      'idUser' : user.idUser,
       'nama' : user.nama,
       'email' : user.email,
       'imageUrl' : user.imageUrl,
+      'jenisUser' : user.jenisUser,
       'created_at': user.createdAt,
       'updated_at': FieldValue.serverTimestamp(),
     };
@@ -119,5 +129,25 @@ static Stream<User> getUser(String idUser) {
   }
 
 }
+
+static Future<String?> uploadImage(XFile imageFile) async {
+    try {
+      String fileName = path.basename(imageFile.path);
+      Reference ref = _storage.ref().child('user/$fileName');
+
+      UploadTask uploadTask;
+      if (kIsWeb) {
+        uploadTask = ref.putData(await imageFile.readAsBytes());
+      } else {
+        uploadTask = ref.putFile(File(imageFile.path));
+      }
+
+      TaskSnapshot taskSnapshot = await uploadTask;
+      String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+      return downloadUrl;
+    } catch (e) {
+      return null;
+    }
+  }
 
 }
