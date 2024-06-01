@@ -22,14 +22,16 @@ class MenuService {
           id: doc.id,
           komentar: data['komentar'],
           namaPengguna: data['namaPengguna'],
+          imageUrl: data['imageUrl'],
         );
       }).toList();
     });
   }
- static Future<void> addKomentar(String komen, String produkId, String tokoId, String namaPengguna) async {
+ static Future<void> addKomentar(String komen, String produkId, String tokoId, String namaPengguna, String imageUrl) async {
     Map<String, dynamic> newKomen = {
       'komentar': komen,
       'namaPengguna': namaPengguna,
+      'imageUrl' : imageUrl,
       'created_at': FieldValue.serverTimestamp(),
       'update_at': FieldValue.serverTimestamp(),
     };

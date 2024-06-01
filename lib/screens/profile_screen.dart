@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:red_wine/service/firebase.dart';
@@ -70,9 +71,30 @@ class _MyWidgetState extends State<ProfileScreen> {
                                   ),
                                   shape: BoxShape.circle,
                                 ),
-                                child: const CircleAvatar(
-                                  radius: 65,
-                                ),
+                                child:  CircleAvatar(
+  radius: 65,
+  child: ClipOval(
+    child: user.imageUrl != null && user.imageUrl != ""
+        ? CachedNetworkImage(
+            imageUrl: user.imageUrl!,
+            fit: BoxFit.cover,
+            alignment: Alignment.center,
+            width: double.infinity,
+            height: 150,
+            placeholder: (context, url) => const Center(
+              child: CircularProgressIndicator(),
+            ),
+            errorWidget: (context, url, error) => const Center(
+              child: Icon(Icons.error),
+            ),
+          )
+        : Container(
+            color: Colors.grey, // Warna avatar kosong
+            child: Icon(Icons.person, size: 65, color: Colors.white), // Icon default untuk avatar kosong
+          ),
+  ),
+)
+
                               ),
                               Positioned(
                                 right: 0,

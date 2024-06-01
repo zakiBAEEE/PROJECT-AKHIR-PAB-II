@@ -1,4 +1,5 @@
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:red_wine/models/menu.dart';
@@ -68,7 +69,29 @@ class _ComentarListState extends State<ComentarList> {
                 final komentar = komentarList[index];
                 return Card(
                   child: ListTile(
-                    leading: CircleAvatar(),
+                    leading: CircleAvatar(
+                      radius: 50,
+                      child: ClipOval(
+                          child: komentar.imageUrl != null && komentar.imageUrl != ""
+                              ? CachedNetworkImage(
+                                  imageUrl: komentar.imageUrl!,
+                                  fit: BoxFit.cover,
+                                  alignment: Alignment.center,
+                                  width: double.infinity,
+                                  height: 150,
+                                  placeholder: (context, url) => const Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                  errorWidget: (context, url, error) => const Center(
+                                    child: Icon(Icons.error),
+                                  ),
+                                )
+                              : Container(
+                                  color: Colors.grey, // Warna avatar kosong
+                                  child: Icon(Icons.person, size: 65, color: Colors.white), // Icon default untuk avatar kosong
+                                ),
+                        ),
+                    ),
                     title: Text(komentar.namaPengguna.toString()),
                     subtitle: Text(komentar.komentar.toString()),
                   ),
@@ -117,10 +140,11 @@ class _KomentarDialogState extends State<KomentarDialog> {
              String idUser = FirebaseAuth.instance.currentUser!.uid;
              Stream userStream = MenuService.getUser(idUser);
 
-         userStream.listen((dynamic haha) {
+         userStream.listen((dynamic user) {
 
-            String namaPengguna = haha.nama;
-            MenuService.addKomentar(_komentarController.text, widget.id, widget.idToko, namaPengguna);
+            String namaPengguna = user.nama;
+            String imageUrl = user.imageUrl != null? user.imageUrl : "";
+            MenuService.addKomentar(_komentarController.text, widget.id, widget.idToko, namaPengguna, imageUrl);
   },);
 
   
