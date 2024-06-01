@@ -38,7 +38,6 @@ class User {
       'email' : email,
       'jenisUser' : jenisUser,
       'imageUrl' : imageUrl,
-      'idUser' : idUser,
       'created_at': createdAt,
       'update_at': updateAt,
     };
