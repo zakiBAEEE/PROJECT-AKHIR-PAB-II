@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class AddMenu extends StatefulWidget {
-  const AddMenu({super.key});
+class EditMenu extends StatefulWidget {
+  const EditMenu({super.key});
 
   @override
-  State<AddMenu> createState() => _AddMenuState();
+  State<EditMenu> createState() => _EditMenuState();
 }
 
-class _AddMenuState extends State<AddMenu> {
+class _EditMenuState extends State<EditMenu> {
   final TextEditingController _namaController = TextEditingController();
   final TextEditingController _hargaController = TextEditingController();
   final TextEditingController _deskripsiController = TextEditingController();
@@ -16,7 +16,6 @@ class _AddMenuState extends State<AddMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: AppBar(
         title: Text('Tambah Makanan'),
         backgroundColor: const Color.fromARGB(255, 7, 202, 128),
@@ -35,6 +34,7 @@ class _AddMenuState extends State<AddMenu> {
               child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              
               Row(
                 children: [
                   ElevatedButton(
@@ -125,7 +125,8 @@ class _AddMenuState extends State<AddMenu> {
                   onPressed: () {
                     // Implementasi untuk menambah makanan
                   },
-                  child: Text('Tambah Makanan',
+                  child: Text(
+                    'Edit Makanan',
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
@@ -136,4 +137,8 @@ class _AddMenuState extends State<AddMenu> {
       ),
     );
   }
+
+  
 }
+
+

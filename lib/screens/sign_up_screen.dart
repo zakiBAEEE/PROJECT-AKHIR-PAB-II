@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:red_wine/models/assets.dart';
 import 'package:red_wine/screens/sign_in_screen.dart';
 import 'package:red_wine/service/firebase.dart';
-
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -16,12 +16,16 @@ class SignUpScreenState extends State<SignUpScreen> {
   final _namaController = TextEditingController();
   final _jenisUserController = TextEditingController();
   String _errorMessage = '';
-  
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: Container(
-        color: Colors.yellow, // Ganti dengan gambar latar belakang nanti
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                colorFilter: ColorFilter.mode(Colors.grey, BlendMode.multiply),
+                image: AssetImage(Assets.bgpic),
+                fit: BoxFit.cover)), // Ganti dengan gambar latar belakang nanti
         child: Center(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
@@ -33,7 +37,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                     const SizedBox(height: 32.0),
                     Image.asset(
                       'assets/logo.png', // Ganti dengan path logo Anda
-                      height: 100,
+                      height: 200,
                     ),
                     const SizedBox(height: 16.0),
                     const Text(
@@ -132,8 +136,8 @@ class SignUpScreenState extends State<SignUpScreen> {
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 50.0, vertical: 15.0), 
-                            backgroundColor: Colors.green, // Warna tombol login
+                            horizontal: 50.0, vertical: 15.0),
+                        backgroundColor: Colors.green, // Warna tombol login
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
@@ -151,7 +155,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                       },
                       child: const Text(
                         'Already have an account? Sign in',
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.black),
                       ),
                     ),
                     const SizedBox(height: 162.0),

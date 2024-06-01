@@ -1,4 +1,3 @@
-
 abstract class Assets {
   static const String forum = "assets/forum.png";
 
