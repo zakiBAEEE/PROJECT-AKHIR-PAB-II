@@ -112,7 +112,7 @@ class _EditFotoProfilState extends State<EditFotoProfil> {
                       );
 
 
-                        MenuService.updateUser(pengguna)
+                        MenuService.updateUserPhoto(pengguna)
                             .whenComplete(() => Navigator.of(context).pop());
                       
                     },

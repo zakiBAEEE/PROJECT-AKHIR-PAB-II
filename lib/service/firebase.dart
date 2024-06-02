@@ -97,6 +97,7 @@ static Stream<List<Menu>> getProdukList() {
 }
 
 
+// ==================================================================================
 static Future<void> addUser(String idUser, String nama, String email, String jenisUser) async {
 
     Map<String, dynamic> newUser = {
@@ -130,13 +131,26 @@ static Stream<User> getUser(String idUser) {
 
  static Future<void> updateUser(User user) async {
     Map<String, dynamic> updateUser = {
-      'idUser' : user.idUser,
       'nama' : user.nama,
       'email' : user.email,
+    };
+
+     QuerySnapshot querySnapshot = await _userCollection.where('idUser', isEqualTo: user.idUser).get();
+
+  // Iterasi melalui hasil pencarian
+  for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+    // Mendapatkan id dokumen
+    String docId = doc.id;
+    // Memperbarui dokumen dengan id yang ditemukan
+    await _userCollection.doc(docId).update(updateUser);
+  }
+
+}
+
+
+ static Future<void> updateUserPhoto(User user) async {
+    Map<String, dynamic> updateUser = {
       'imageUrl' : user.imageUrl,
-      'jenisUser' : user.jenisUser,
-      'created_at': user.createdAt,
-      'updated_at': FieldValue.serverTimestamp(),
     };
 
      QuerySnapshot querySnapshot = await _userCollection.where('idUser', isEqualTo: user.idUser).get();
@@ -170,5 +184,7 @@ static Future<String?> uploadImage(XFile imageFile) async {
       return null;
     }
   }
+
+  // ======================================================================================================
 
 }

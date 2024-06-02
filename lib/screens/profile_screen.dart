@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:red_wine/screens/edit_foto_profil.dart';
+import 'package:red_wine/screens/edit_profil.dart';
 import 'package:red_wine/service/firebase.dart';
 import 'package:red_wine/widget/profile_info_item.dart';
 import 'package:red_wine/screens/add_menu.dart';
@@ -73,7 +74,7 @@ class _MyWidgetState extends State<ProfileScreen> {
                                   shape: BoxShape.circle,
                                 ),
                                 child:  CircleAvatar(
-  radius: 65,
+  radius: 70,
   child: ClipOval(
     child: user.imageUrl != null && user.imageUrl != ""
         ? CachedNetworkImage(
@@ -202,7 +203,12 @@ class _MyWidgetState extends State<ProfileScreen> {
                             alignment: MainAxisAlignment.center,
                             children: [
                               ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => EditProfil(user: user,)),
+            );
+                                },
                                 style: ElevatedButton.styleFrom(
                                     fixedSize: Size(200, 40),
                                     backgroundColor:
