@@ -4,8 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:red_wine/screens/edit_foto_profil.dart';
 import 'package:red_wine/service/firebase.dart';
 import 'package:red_wine/widget/profile_info_item.dart';
-import 'package:red_wine/screens/add_menu.dart';
-import 'package:red_wine/screens/edit_menu.dart';
 
 class ProfileScreenPelanggan extends StatefulWidget {
   const ProfileScreenPelanggan({Key? key}) : super(key: key);
@@ -210,63 +208,6 @@ class _MyWidgetState extends State<ProfileScreenPelanggan> {
                       Divider(
                         color: Colors.deepPurple[100],
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      // TODO: 4 Buat ProfileAction yang berisi TextButton sign in/sign out
-
-                    
-         
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ButtonBar(
-                      alignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AddMenu()),
-            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                              fixedSize: Size(200, 40),
-                              backgroundColor:
-                                  const Color.fromARGB(255, 57, 255, 7)),
-                          child: const Text(
-                            "Add menu",
-                            style:
-                                TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-                          ),
-                        ),
-                      ],
-                    ),
-                    ButtonBar(
-                      alignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                           Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => EditMenu()),
-            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                              fixedSize: Size(200, 40),
-                              backgroundColor:
-                                  const Color.fromARGB(255, 57, 255, 7)),
-                          child: const Text(
-                            "Edit Menu",
-                            style:
-                                TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
                 ],
                   )
                         
