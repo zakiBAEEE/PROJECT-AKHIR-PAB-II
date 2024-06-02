@@ -21,15 +21,15 @@ class _MyAppState extends State<MyApp> {
 Future<void>signOut(BuildContext context) async {
  await FirebaseAuth.instance.signOut();
  Navigator.of(context).pushReplacement(
- MaterialPageRoute(builder: (context) => SignInScreen()));
+ MaterialPageRoute(builder: (context) => const SignInScreen()));
  }
 
 
   final TextEditingController _searchController = TextEditingController();
 
   final Tabs = [
-    const HomePage(),
-     MenuScreen(),
+    const HomeScreen(),
+    const MenuScreen(),
     const FavoriteMenuScreen(favoriteMenus: [],),
     const ProfileScreen()
   ];

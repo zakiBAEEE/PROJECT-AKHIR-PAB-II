@@ -68,4 +68,6 @@ class Menu {
       'update_at': updateAt,
     };
   }
+
+  static fromFirestore(QueryDocumentSnapshot<Object?> doc) {}
 }
