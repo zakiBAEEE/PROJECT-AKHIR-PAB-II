@@ -37,19 +37,55 @@ class _MyWidgetState extends State<ProfileScreen> {
           final user = snapshot.data!;
 
           return SingleChildScrollView(
-            child: Stack(
+            child: Column(
               children: [
                 Container(
-                  height: 190,
+                  height: 80,
                   width: double.infinity,
-                  color: Color.fromARGB(255, 14, 139, 255),
-                  child: const Center(
-                    child: Text(
-                      'PROFILE',
-                      style: TextStyle(
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  child:  Center(
+                    child: TextButton(
+                     child: Text(
+                       user.nama,
+                      style: const TextStyle(
                           fontSize: 40,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                          color: Color.fromARGB(255, 0, 0, 0))
+                     ),
+                     onPressed: (){
+                      TextEditingController _textFieldController = TextEditingController();
+                          _textFieldController.text = user.nama.toString();
+    
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Ganti Nama?'),
+          content: TextField(
+            controller: _textFieldController,
+            decoration: const InputDecoration(hintText: 'Masukkan Nama Anda'),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Batal'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Simpan'),
+              onPressed: () {
+                String editedNama = _textFieldController.text;
+                // Lakukan pembaruan komentar di sini, misalnya dengan menggunakan MenuService.updateKomentar
+                MenuService.updateUser(user, editedNama)
+                  .whenComplete(() => Navigator.of(context).pop());
+              },
+            ),
+          ],
+        );
+      },
+    );
+                     },
                     ),
                   ),
                 ),
@@ -60,7 +96,7 @@ class _MyWidgetState extends State<ProfileScreen> {
                       Align(
                         alignment: Alignment.topCenter,
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 190 - 50),
+                          padding: const EdgeInsets.only(top: 10),
                           child: Stack(
                             alignment: Alignment.bottomRight,
                             children: [
@@ -117,91 +153,8 @@ class _MyWidgetState extends State<ProfileScreen> {
                         ),
                       ),
                       // Pengguna
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Divider(
-                        color: Colors.deepPurple[100],
-                      ),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      InkWell(
-                        child: ProfileInfoItem(
-                          icon: Icons.lock,
-                          label: "Pengguna",
-                          value: user.nama,
-                          iconColor: Colors.amber,
-                        ),
-                        onTap: (){
-                          TextEditingController _textFieldController = TextEditingController();
-                          _textFieldController.text = user.nama.toString();
-    
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Ganti Nama?'),
-          content: TextField(
-            controller: _textFieldController,
-            decoration: const InputDecoration(hintText: 'Masukkan Nama Anda'),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Batal'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: const Text('Simpan'),
-              onPressed: () {
-                String editedNama = _textFieldController.text;
-                // Lakukan pembaruan komentar di sini, misalnya dengan menggunakan MenuService.updateKomentar
-                MenuService.updateUser(user, editedNama)
-                  .whenComplete(() => Navigator.of(context).pop());
-              },
-            ),
-          ],
-        );
-      },
-    );
-                        },
-                      ),
-
-                      // Nama
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      Divider(
-                        color: Colors.deepPurple[100],
-                      ),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      ProfileInfoItem(
-                        icon: Icons.person,
-                        label: "Email",
-                        value: user.email,
-                        iconColor: Colors.blue,
-                      ),
-
-                      // Favorit
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      Divider(
-                        color: Colors.deepPurple[100],
-                      ),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      ProfileInfoItem(
-                        icon: Icons.favorite,
-                        label: "Favorit",
-                        value: " ",
-                        iconColor: Colors.red,
-                      ),
+                      
+                      
 
                       // Penutup
                       const SizedBox(
