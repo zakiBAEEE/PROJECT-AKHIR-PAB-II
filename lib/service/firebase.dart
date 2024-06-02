@@ -129,10 +129,9 @@ static Stream<Pengguna> getUser(String idUser) {
   });
 }
 
- static Future<void> updateUser(Pengguna user) async {
+ static Future<void> updateUser(Pengguna user, String namaBaru) async {
     Map<String, dynamic> updateUser = {
-      'nama' : user.nama,
-      'email' : user.email,
+      'nama' : namaBaru,
     };
 
      QuerySnapshot querySnapshot = await _userCollection.where('idUser', isEqualTo: user.idUser).get();

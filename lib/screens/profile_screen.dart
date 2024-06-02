@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:red_wine/screens/edit_foto_profil.dart';
-import 'package:red_wine/screens/edit_profil.dart';
 import 'package:red_wine/service/firebase.dart';
 import 'package:red_wine/widget/profile_info_item.dart';
 import 'package:red_wine/screens/add_menu.dart';
@@ -127,11 +126,47 @@ class _MyWidgetState extends State<ProfileScreen> {
                       const SizedBox(
                         height: 4,
                       ),
-                      ProfileInfoItem(
-                        icon: Icons.lock,
-                        label: "Pengguna",
-                        value: user.nama,
-                        iconColor: Colors.amber,
+                      InkWell(
+                        child: ProfileInfoItem(
+                          icon: Icons.lock,
+                          label: "Pengguna",
+                          value: user.nama,
+                          iconColor: Colors.amber,
+                        ),
+                        onTap: (){
+                          TextEditingController _textFieldController = TextEditingController();
+                          _textFieldController.text = user.nama.toString();
+    
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Ganti Nama?'),
+          content: TextField(
+            controller: _textFieldController,
+            decoration: const InputDecoration(hintText: 'Masukkan Nama Anda'),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Batal'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Simpan'),
+              onPressed: () {
+                String editedNama = _textFieldController.text;
+                // Lakukan pembaruan komentar di sini, misalnya dengan menggunakan MenuService.updateKomentar
+                MenuService.updateUser(user, editedNama)
+                  .whenComplete(() => Navigator.of(context).pop());
+              },
+            ),
+          ],
+        );
+      },
+    );
+                        },
                       ),
 
                       // Nama
@@ -180,50 +215,7 @@ class _MyWidgetState extends State<ProfileScreen> {
                       ),
                       // TODO: 4 Buat ProfileAction yang berisi TextButton sign in/sign out
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ButtonBar(
-                            alignment: MainAxisAlignment.center,
-                            children: [
-                              ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                    fixedSize: Size(200, 40),
-                                    backgroundColor: Colors.amber),
-                                child: const Text(
-                                  "Sign Out",
-                                  style: TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0)),
-                                ),
-                              ),
-                            ],
-                          ),
-                          ButtonBar(
-                            alignment: MainAxisAlignment.center,
-                            children: [
-                              ElevatedButton(
-                                onPressed: () {
-                                  Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => EditProfil(user: user,)),
-            );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    fixedSize: Size(200, 40),
-                                    backgroundColor:
-                                        const Color.fromARGB(255, 57, 255, 7)),
-                                child: const Text(
-                                  "Edit Profile",
-                                  style: TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0)),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                   
+                    
          
                 const SizedBox(height: 10),
                 Row(
