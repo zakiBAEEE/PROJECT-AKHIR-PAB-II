@@ -1,6 +1,4 @@
-import 'dart:io';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:red_wine/models/user.dart';
 import 'package:red_wine/service/firebase.dart';
@@ -25,10 +23,10 @@ class _EditProfilState extends State<EditProfil> {
   @override
   void initState() {
     super.initState();
-    if (widget.user != null) {
+    
       _namaController.text = widget.user.nama;
       _emailController.text = widget.user.email;
-    }
+    
   }
 
 
