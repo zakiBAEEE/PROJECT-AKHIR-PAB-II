@@ -18,6 +18,7 @@ class MenuService {
 
   static final FirebaseStorage _storage = FirebaseStorage.instance;
 
+// ========================================================================================
   static Stream<List<Komentar>> getKomentarList(String produkId, String tokoId) {
     return _userCollection.doc(tokoId).collection('produk').doc(produkId).collection('komentar').orderBy('created_at', descending: true)
         .snapshots()
@@ -29,21 +30,41 @@ class MenuService {
           komentar: data['komentar'],
           namaPengguna: data['namaPengguna'],
           imageUrl: data['imageUrl'],
+          idUser: data['idUser'],
         );
       }).toList();
     });
   }
- static Future<void> addKomentar(String komen, String produkId, String tokoId, String namaPengguna, String imageUrl) async {
+ static Future<void> addKomentar(String komen, String produkId, String tokoId, String namaPengguna, String imageUrl, String idUser) async {
     Map<String, dynamic> newKomen = {
       'komentar': komen,
       'namaPengguna': namaPengguna,
       'imageUrl' : imageUrl,
+      'idUser' : idUser,
       'created_at': FieldValue.serverTimestamp(),
       'update_at': FieldValue.serverTimestamp(),
     };
     await _userCollection.doc(tokoId).collection('produk').doc(produkId).collection('komentar').add(newKomen);
-        // await _notesCollection.doc(menuId).collection('komentar').add(newKomen);
   }
+
+
+
+    static Future<void> updateKomentar(Komentar komentar, String tokoId, String produkId, String newKomen,) async {
+    Map<String, dynamic> updatedNote = {
+      'komentar' : newKomen,
+      'created_at': komentar.createdAt,
+      'updated_at': FieldValue.serverTimestamp(),
+    };
+
+      await _userCollection.doc(tokoId).collection('produk').doc(produkId).collection('komentar').doc(komentar.id).update(updatedNote);
+  }
+
+   static Future<void> deleteKomentar(Komentar komentar, String tokoId, String produkId, ) async {
+     await _userCollection.doc(tokoId).collection('produk').doc(produkId).collection('komentar').doc(komentar.id).delete();
+  }
+// =====================================================================
+
+
 static Stream<List<Menu>> getProdukList() {
   return _userCollection.snapshots().asyncMap((snapshot) async {
     List<Menu> menuList = [];

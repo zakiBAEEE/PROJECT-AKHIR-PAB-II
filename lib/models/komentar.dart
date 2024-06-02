@@ -5,6 +5,7 @@ class Komentar {
   String? komentar;
   String? namaPengguna;
   String? imageUrl;
+  String? idUser;
   Timestamp? createdAt;
   Timestamp? updateAt;
 
@@ -13,6 +14,7 @@ class Komentar {
       this.komentar,
       this.namaPengguna,
       this.imageUrl,
+      this.idUser,
       this.createdAt,
       this.updateAt});
 
@@ -23,6 +25,7 @@ class Komentar {
       komentar: data['komentar'],
       namaPengguna: data['namaPengguna'],
       imageUrl: data['imageUrl'],
+      idUser: data['idUser'],
       createdAt: data['created_at'] as Timestamp,
       updateAt: data['update_at'] as Timestamp,
     );
@@ -33,6 +36,7 @@ class Komentar {
       'komentar' : komentar,
       'namaPengguna': namaPengguna,
       'imageUrl' : imageUrl,
+      'idUser' : idUser,
       'created_at': createdAt,
       'update_at': updateAt,
     };
