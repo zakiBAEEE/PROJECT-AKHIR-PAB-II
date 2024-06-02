@@ -3,18 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:red_wine/screens/edit_foto_profil.dart';
 import 'package:red_wine/service/firebase.dart';
-import 'package:red_wine/widget/profile_info_item.dart';
 import 'package:red_wine/screens/add_menu.dart';
 import 'package:red_wine/screens/edit_menu.dart';
 
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+class ProfileScreenToko extends StatefulWidget {
+  const ProfileScreenToko({Key? key}) : super(key: key);
 
   @override
-  State<ProfileScreen> createState() => _MyWidgetState();
+  State<ProfileScreenToko> createState() => _MyWidgetState();
 }
 
-class _MyWidgetState extends State<ProfileScreen> {
+class _MyWidgetState extends State<ProfileScreenToko> {
   String idUser = FirebaseAuth.instance.currentUser!.uid;
 
 
