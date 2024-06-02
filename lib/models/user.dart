@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class User {
+class Pengguna {
   String? idUser;
   String nama;
   String email;
@@ -9,7 +9,7 @@ class User {
   Timestamp? createdAt;
   Timestamp? updateAt;
 
-  User(
+  Pengguna(
       {this.idUser,
       required this.nama,
       required this.email,
@@ -18,9 +18,9 @@ class User {
       this.createdAt,
       this.updateAt});
 
-  factory User.fromDocument(DocumentSnapshot doc) {
+  factory Pengguna.fromDocument(DocumentSnapshot doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-    return User(
+    return Pengguna(
       idUser: data['idUser'],
       nama: data['nama'],
       email: data['email'],

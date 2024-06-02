@@ -8,7 +8,7 @@ import 'package:red_wine/service/firebase.dart';
 
 
 class EditFotoProfil extends StatefulWidget {
-  final User user;
+  final Pengguna user;
   const EditFotoProfil({super.key, required this.user});
   @override
   State<EditFotoProfil> createState() => _EditFotoProfilState();
@@ -103,7 +103,7 @@ class _EditFotoProfilState extends State<EditFotoProfil> {
                       } else {
                         imageUrl = widget.user.imageUrl;
                       }
-                      User pengguna = User(
+                      Pengguna pengguna = Pengguna(
                        nama: widget.user.nama,
                        email: widget.user.email,
                        idUser: widget.user.idUser,

@@ -112,14 +112,14 @@ static Future<void> addUser(String idUser, String nama, String email, String jen
     await _userCollection.add(newUser);
   }
 
-static Stream<User> getUser(String idUser) {
+static Stream<Pengguna> getUser(String idUser) {
   return _userCollection
       .where('idUser', isEqualTo: idUser)
       .snapshots()
       .map((snapshot) {
       var doc = snapshot.docs.first;
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-      return User(
+      return Pengguna(
         idUser: data['idUser'],
         nama: data['nama'],
         email: data['email'],
@@ -129,7 +129,7 @@ static Stream<User> getUser(String idUser) {
   });
 }
 
- static Future<void> updateUser(User user) async {
+ static Future<void> updateUser(Pengguna user) async {
     Map<String, dynamic> updateUser = {
       'nama' : user.nama,
       'email' : user.email,
@@ -148,7 +148,7 @@ static Stream<User> getUser(String idUser) {
 }
 
 
- static Future<void> updateUserPhoto(User user) async {
+ static Future<void> updateUserPhoto(Pengguna user) async {
     Map<String, dynamic> updateUser = {
       'imageUrl' : user.imageUrl,
     };

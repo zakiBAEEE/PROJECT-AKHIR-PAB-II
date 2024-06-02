@@ -1,11 +1,12 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:red_wine/models/user.dart';
 import 'package:red_wine/service/firebase.dart';
 
 
 class EditProfil extends StatefulWidget {
-  final User user;
+  final Pengguna user;
 
 
   const EditProfil({super.key, required this.user});
@@ -71,13 +72,19 @@ class _EditProfilState extends State<EditProfil> {
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      User pengguna = User(
+                      Pengguna pengguna = Pengguna(
                         nama: _namaController.text,
                         email: _emailController.text,
                         jenisUser: widget.user.jenisUser,
                       ); 
 
-                      MenuService.updateUser(pengguna);
+                      
+      // Perbarui data pengguna
+      await MenuService.updateUser(pengguna).whenComplete(() => Navigator.of(context).pop());    
+     
+      // Tangani kesalahan yang mungkin terjadi selama proses
+    
+                      
                       },
                       
                     child: Text('Update'),
