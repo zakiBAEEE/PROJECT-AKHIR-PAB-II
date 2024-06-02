@@ -40,7 +40,7 @@ Future<void>signOut(BuildContext context) async {
       appBar: AppBar(
         actions: [IconButton(
  onPressed: () {
- signOut(context);
+ _showSignOutDialog(context);
  },
  icon: const Icon(Icons.logout),
  ),
@@ -93,6 +93,36 @@ Future<void>signOut(BuildContext context) async {
       ),
     );
   }
+
+  void _showSignOutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false, // Set to false to prevent dismissal by tapping outside the dialog
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Sign Out'),
+          content: const Text('Are you sure you want to sign out?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Dismiss the dialog
+              },
+            ),
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                // Call the signOut function and close the dialog
+                signOut(context);
+                Navigator.of(context).pop(); // Dismiss the dialog
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }
 
 
