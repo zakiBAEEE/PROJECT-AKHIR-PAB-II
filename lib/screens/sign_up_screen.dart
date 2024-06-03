@@ -101,15 +101,8 @@ class SignUpScreenState extends State<SignUpScreen> {
                     ElevatedButton(
                       onPressed: () async {
                         try {
-<<<<<<< HEAD
-                          UserCredential userCredential = await FirebaseAuth
-                              .instance
-                              .createUserWithEmailAndPassword(
-                            email: _usernameController.text,
-=======
                         UserCredential userCredential =   await FirebaseAuth.instance.createUserWithEmailAndPassword(
                             email: _emailController.text,
->>>>>>> 284dc6a2db3b08622f10f0e32d38abaf4326311e
                             password: _passwordController.text,
                           );
 
