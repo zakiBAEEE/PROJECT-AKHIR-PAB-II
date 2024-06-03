@@ -1,36 +1,27 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:red_wine/models/menu.dart';
-import 'package:red_wine/widget/card_cart.dart';
+import 'package:red_wine/screens/detail_screen.dart';
 
-class FavoriteMenuScreen extends StatefulWidget {
-  final List<Menu> favoriteMenus;
 
-  const FavoriteMenuScreen({super.key, required this.favoriteMenus});
+class FavoriteMenuScreen extends StatelessWidget {
+  const FavoriteMenuScreen({super.key, required List favoriteMenus});
 
-  @override
-  State<FavoriteMenuScreen> createState() => _FavoriteMenuScreenState();
-}
+  Future<List<Menu>> _getFavoriteMenus() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      return [];
+    }
 
-class _FavoriteMenuScreenState extends State<FavoriteMenuScreen> {
-  late List<Menu> _favoriteMenus;
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('favorites')
+        .doc(user.uid)
+        .collection('menus')
+        .get();
 
-  @override
-  void initState() {
-    super.initState();
-    _favoriteMenus = widget.favoriteMenus;
+    return snapshot.docs.map((doc) => Menu.fromDocument(doc, user.uid)).toList();
   }
-
-  Future<void> _toggleFavorite(Menu menu) async {
-    setState(() {
-      if (_favoriteMenus.contains(menu)) {
-        _favoriteMenus.remove(menu);
-      } else {
-        _favoriteMenus.add(menu);
-      }
-    });
-  }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -38,30 +29,37 @@ class _FavoriteMenuScreenState extends State<FavoriteMenuScreen> {
       appBar: AppBar(
         title: const Text('Favorite Menus'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Keranjang Anda',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 20),
-            Expanded(
-              child: ListView.builder(
-                itemCount: _favoriteMenus.length,
-                itemBuilder: (context, index) {
-                  return CardCart(
-                    menu: _favoriteMenus[index],
-                    id: index.toString(),
-                    onFavoriteToggle: () => _toggleFavorite(_favoriteMenus[index]),
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
+      body: FutureBuilder<List<Menu>>(
+        future: _getFavoriteMenus(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return const Center(child: Text('Error loading favorite menus'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(child: Text('No favorite menus found'));
+          } else {
+            return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                Menu menu = snapshot.data![index];
+                return ListTile(
+                  
+                  title: Text(menu.title),
+                  subtitle: Text(menu.harga),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailPage(menu: menu),
+                      ),
+                    );
+                  },
+                );
+              },
+            );
+          }
+        },
       ),
     );
   }

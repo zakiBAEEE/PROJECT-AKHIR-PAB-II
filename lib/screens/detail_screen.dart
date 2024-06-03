@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:red_wine/models/menu.dart';
-import 'package:red_wine/screens/favoite_menu_list.dart';
+
 import 'package:red_wine/screens/komentar_screen.dart';
 
 class DetailPage extends StatefulWidget {
@@ -13,36 +15,62 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   bool isFavorite = false;
-  late FavoriteMenuList favoriteMenuList;
-  // bool isSignIn = false; // Menyimpan status sign in
+
 
   @override
   void initState() {
     super.initState();
     // _checkSignInStatus();
-      favoriteMenuList = FavoriteMenuList();
+    _chechIfFavorite();
   }
 
-  void _toggleFavorite() {
-  setState(() {
-    if (!isFavorite) {
-      // Tambahkan menu ke daftar favorit jika belum ada
-      // (disini, Anda perlu mengakses class yang mengelola state favorit, atau menggunakan metode yang sesuai untuk mengelola state global favorit)
-      favoriteMenuList.add(widget.menu);
-    } else {
-      // Hapus menu dari daftar favorit jika sudah ada
-      favoriteMenuList.remove(widget.menu);
+  void _chechIfFavorite() async{
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      DocumentSnapshot doc = await FirebaseFirestore.instance
+          .collection('favorites')
+          .doc(user.uid)
+          .collection('menus')
+          .doc(widget.menu.id)
+          .get();
+      setState(() {
+        isFavorite = doc.exists;
+      });
     }
-    // Tandai apakah menu ini sudah ditandai sebagai favorit atau tidak
-    isFavorite = !isFavorite;
-  });
-  // Kembali ke layar sebelumnya (FavoriteMenuScreen)
-}
+  }
+
+   void _toggleFavorite() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      // Handle user not signed in
+      return;
+    }
+
+    DocumentReference favoriteRef = FirebaseFirestore.instance
+        .collection('favorites')
+        .doc(user.uid)
+        .collection('menus')
+        .doc(widget.menu.id);
+
+    if (!isFavorite) {
+      await favoriteRef.set({
+        'title': widget.menu.title,
+        'harga': widget.menu.harga,
+        'imageUrl': widget.menu.imageUrl,
+        'toko': widget.menu.toko,
+      });
+    } else {
+      await favoriteRef.delete();
+    }
+
+    setState(() {
+      isFavorite = !isFavorite;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       backgroundColor: Colors.green,
       body: ListView(
         children: [
@@ -262,7 +290,6 @@ class _DetailPageState extends State<DetailPage> {
   }
 
   Widget header() {
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
@@ -273,9 +300,10 @@ class _DetailPageState extends State<DetailPage> {
             child: const BackButton(color: Colors.white),
           ),
           const Spacer(),
-         const Text(
+          const Text(
             'Details Food',
-           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           const Spacer(),
           Row(
@@ -295,9 +323,8 @@ class _DetailPageState extends State<DetailPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ComentarScreen(
-                                    menu: widget.menu
-                                  )),
+                              builder: (context) =>
+                                  ComentarScreen(menu: widget.menu)),
                         );
                       },
                       icon: const Icon(Icons.comment_sharp),
