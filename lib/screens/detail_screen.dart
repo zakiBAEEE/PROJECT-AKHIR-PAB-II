@@ -115,7 +115,7 @@ class _DetailPageState extends State<DetailPage> {
                     height: 5,
                   ),
                   Text(
-                    " Menit",
+                    "-",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   )
                 ],
