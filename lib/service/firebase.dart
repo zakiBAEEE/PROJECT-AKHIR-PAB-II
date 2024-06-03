@@ -291,7 +291,7 @@ class MenuService {
   static Stream<List<Menu>> searchMenus(String query) {
     return _userCollection.snapshots().asyncMap((snapshot) async {
       List<Menu> menuList = [];
-      String lowerQuery = query.toLowerCase();
+      // String lowerQuery = query.toLowerCase();
       for (var doc in snapshot.docs) {
         QuerySnapshot menuSnapshot = await doc.reference
             .collection('produk')

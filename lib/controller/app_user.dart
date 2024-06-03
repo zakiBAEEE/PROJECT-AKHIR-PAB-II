@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
       const HomeScreen(),
       MenuScreen(searchQuery: searchString),
       // const FavoriteMenuScreen(favoriteMenus: []),
-      TokoScreen(),
+      const TokoScreen(),
       const ProfileScreenPelanggan(), // Defaultnya ProfileScreenPelanggan
     ];
   }
