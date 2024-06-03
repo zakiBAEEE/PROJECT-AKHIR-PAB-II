@@ -12,8 +12,20 @@ class CardMenu extends StatefulWidget {
 }
 
 class _CardMenuState extends State<CardMenu> {
+  double calculateDiscountPrice(String harga) {
+    // Remove non-numeric characters except for the comma or dot
+    String cleanedPrice = harga.replaceAll(RegExp(r'[^\d,]'), '');
+    // Replace the comma with a dot to convert to a double if needed
+    cleanedPrice = cleanedPrice.replaceAll(',', '.');
+    double originalPrice = double.parse(cleanedPrice);
+    double discountPrice = originalPrice - (originalPrice * 0.2);
+    return discountPrice;
+  }
+
   @override
   Widget build(BuildContext context) {
+    double discountedPrice = calculateDiscountPrice(widget.menu.harga);
+
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -23,7 +35,7 @@ class _CardMenuState extends State<CardMenu> {
       },
       child: SizedBox(
         width: 160, // Adjusted width to fit the layout better
-        height: 300, // Adjusted height to fit the layout better
+        height: 240, // Adjusted height to fit the layout better
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -31,7 +43,7 @@ class _CardMenuState extends State<CardMenu> {
               alignment: AlignmentDirectional.bottomStart,
               children: [
                 SizedBox(
-                  height: 80, // Adjusted image height
+                  height: 120, // Adjusted image height
                   width: MediaQuery.of(context).size.width,
                   child: Ink.image(
                     image: NetworkImage("${widget.menu.imageUrl}"),
@@ -44,7 +56,7 @@ class _CardMenuState extends State<CardMenu> {
                   const Padding(
                     padding: EdgeInsets.all(4.0),
                     child: Text(
-                      " ON SALE 5%",
+                      " ON SALE 20%",
                       style: TextStyle(
                           color: Colors.white, backgroundColor: Colors.red),
                     ),
@@ -67,21 +79,21 @@ class _CardMenuState extends State<CardMenu> {
               softWrap: false,
               style: const TextStyle(fontSize: 14),
             ),
-            const SizedBox(height: 2),
+            const SizedBox(height: 8),
             Row(
               children: [
                 SlashedText(
                   text: widget.menu.harga,
                   style: const TextStyle(fontSize: 14, color: Colors.grey),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 4.0),
+                Padding(
+                  padding: const EdgeInsets.only(left: 4.0),
                   child: Text(
-                    'Rp10.000',
+                    'Rp${discountedPrice.toStringAsFixed(0)}',
                     maxLines: 1,
                     overflow: TextOverflow.clip,
                     softWrap: false,
-                    style: TextStyle(fontSize: 14, color: Colors.red),
+                    style: const TextStyle(fontSize: 14, color: Colors.red),
                   ),
                 ),
               ],

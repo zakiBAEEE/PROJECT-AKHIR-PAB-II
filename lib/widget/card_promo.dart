@@ -3,23 +3,29 @@ import 'package:red_wine/models/menu.dart';
 import 'package:red_wine/screens/detail_screen.dart';
 import 'package:red_wine/widget/slashed_text.dart';
 
-class CardPromo extends StatefulWidget {
+class CardPromo extends StatelessWidget {
   final Menu menu;
   const CardPromo({super.key, required this.menu});
 
-  @override
-  State<CardPromo> createState() => _CardPromoState();
-}
+  double calculateDiscountPrice(String harga) {
+    // Remove non-numeric characters except for the comma
+    String cleanedPrice = harga.replaceAll(RegExp(r'[^\d,]'), '');
+    // Replace the comma with a dot to convert to a double
+    cleanedPrice = cleanedPrice.replaceAll(',', '.');
+    double originalPrice = double.parse(cleanedPrice);
+    double discountPrice = originalPrice - (originalPrice * 0.2);
+    return discountPrice;
+  }
 
-class _CardPromoState extends State<CardPromo> {
   @override
   Widget build(BuildContext context) {
+    double discountedPrice = calculateDiscountPrice(menu.harga);
+
     return InkWell(
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
-              builder: (context) => DetailPage(menu: widget.menu)),
+          MaterialPageRoute(builder: (context) => DetailPage(menu: menu)),
         );
       },
       child: SizedBox(
@@ -35,17 +41,17 @@ class _CardPromoState extends State<CardPromo> {
                   height: 120, // Adjusted image height
                   width: MediaQuery.of(context).size.width,
                   child: Ink.image(
-                    image: NetworkImage("${widget.menu.imageUrl}"),
+                    image: NetworkImage("${menu.imageUrl}"),
                     fit: BoxFit.cover,
                     alignment: Alignment.center,
                     width: double.infinity,
                   ),
                 ),
-                if (widget.menu.isPromo)
+                if (menu.isPromo)
                   const Padding(
                     padding: EdgeInsets.all(4.0),
                     child: Text(
-                      " ON SALE 5%",
+                      " ON SALE 20%",
                       style: TextStyle(
                           color: Colors.white, backgroundColor: Colors.red),
                     ),
@@ -54,7 +60,7 @@ class _CardPromoState extends State<CardPromo> {
             ),
             const SizedBox(height: 8),
             Text(
-              widget.menu.toko,
+              menu.toko,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               softWrap: false,
@@ -62,7 +68,7 @@ class _CardPromoState extends State<CardPromo> {
             ),
             const SizedBox(height: 4),
             Text(
-              widget.menu.title,
+              menu.title,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               softWrap: false,
@@ -72,17 +78,17 @@ class _CardPromoState extends State<CardPromo> {
             Row(
               children: [
                 SlashedText(
-                  text: widget.menu.harga,
+                  text: menu.harga,
                   style: const TextStyle(fontSize: 14, color: Colors.grey),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 4.0),
+                Padding(
+                  padding: const EdgeInsets.only(left: 4.0),
                   child: Text(
-                    'Rp10.000',
+                    'Rp${discountedPrice.toStringAsFixed(0)}',
                     maxLines: 1,
                     overflow: TextOverflow.clip,
                     softWrap: false,
-                    style: TextStyle(fontSize: 14, color: Colors.red),
+                    style: const TextStyle(fontSize: 14, color: Colors.red),
                   ),
                 ),
               ],
