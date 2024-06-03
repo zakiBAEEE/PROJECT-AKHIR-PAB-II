@@ -190,7 +190,7 @@ class _MyWidgetState extends State<ProfileScreenToko> {
                                   );
                                 },
                                 style: ElevatedButton.styleFrom(
-                                    fixedSize: Size(200, 40),
+                                    fixedSize: Size(160, 40),
                                     backgroundColor:
                                         const Color.fromARGB(255, 57, 255, 7)),
                                 child: const Text(
@@ -217,7 +217,7 @@ class _MyWidgetState extends State<ProfileScreenToko> {
                                   );
                                 },
                                 style: ElevatedButton.styleFrom(
-                                    fixedSize: Size(200, 40),
+                                    fixedSize: Size(160, 40),
                                     backgroundColor:
                                         const Color.fromARGB(255, 57, 255, 7)),
                                 child: const Text(
