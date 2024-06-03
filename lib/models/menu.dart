@@ -18,7 +18,7 @@ class Menu {
 
   Menu(
       {this.idToko,
-        this.id,
+      this.id,
       required this.title,
       this.imageUrl,
       required this.description,
@@ -56,6 +56,8 @@ class Menu {
 
   Map<String, dynamic> toDocument() {
     return {
+      'idToko': idToko,
+      'id': id,
       'title': title,
       'description': description,
       'imageUrl': imageUrl,

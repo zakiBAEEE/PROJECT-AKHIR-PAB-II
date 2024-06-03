@@ -150,26 +150,24 @@ class MenuService {
     await _userCollection.doc(tokoId).collection('produk').add(newProduk);
   }
 
-  static Future<void> updateProduk(
-      Komentar komentar, String tokoId, String produkId, Menu menu) async {
+  static Future<void> updateProduk(String tokoId, Menu menu) async {
     Map<String, dynamic> updateProduk = {
       'title': menu.title,
       'description': menu.description,
       'imageUrl': menu.imageUrl,
       'harga': menu.harga,
-      'isFavorite': false,
+      'isFavorite': menu.isPromo,
       'isPromo': menu.isPromo,
       'jamBuka': menu.jamBuka,
       'jenis': menu.jenis,
       'kategori': menu.kategori,
-      'created_at': komentar.createdAt,
       'updated_at': FieldValue.serverTimestamp(),
     };
 
     await _userCollection
         .doc(tokoId)
         .collection('produk')
-        .doc(produkId)
+        .doc(menu.id)
         .update(updateProduk);
   }
 

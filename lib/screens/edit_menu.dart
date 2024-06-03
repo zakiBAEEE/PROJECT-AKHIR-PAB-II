@@ -1,32 +1,67 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:red_wine/models/menu.dart';
+import 'package:red_wine/service/firebase.dart';
 
 class EditMenu extends StatefulWidget {
-  const EditMenu({super.key});
+  final Menu produk;
+  const EditMenu({super.key, required this.produk});
 
   @override
   State<EditMenu> createState() => _EditMenuState();
 }
 
 class _EditMenuState extends State<EditMenu> {
-  final TextEditingController _namaController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
   final TextEditingController _hargaController = TextEditingController();
   final TextEditingController _deskripsiController = TextEditingController();
   final TextEditingController _jenisController = TextEditingController();
   final TextEditingController _kategoriController = TextEditingController();
-  final TextEditingController _tokoController = TextEditingController();
   final ValueNotifier<bool> _isFavorite = ValueNotifier<bool>(false);
   final ValueNotifier<bool> _isPromo = ValueNotifier<bool>(false);
   final TextEditingController _jamBuka = TextEditingController();
   String? _imageUrl;
+  XFile? _imageFile;
+
+  void initState() {
+    super.initState();
+    if (widget.produk != null) {
+      _imageUrl = widget.produk.imageUrl;
+      _titleController.text = widget.produk.title;
+      _hargaController.text = widget.produk.harga;
+      _deskripsiController.text = widget.produk.description;
+      _jenisController.text = widget.produk.jenis;
+      _kategoriController.text = widget.produk.kategori;
+      _isFavorite.value = widget.produk.isFavorite;
+      _isPromo.value = widget.produk.isPromo;
+      _jamBuka.text = widget.produk.jamBuka;
+    }
+  }
+
+  Future<void> _pickImage() async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _imageFile = pickedFile;
+        _imageUrl = _imageFile!
+            .path; // Update _imageUrl with the path of the selected image file
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Makanan'),
+        title: Text('Edit Produk'),
         backgroundColor: const Color.fromARGB(255, 7, 202, 128),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const BackButton(
+            color: Colors.white,
+          ),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -42,9 +77,7 @@ class _EditMenuState extends State<EditMenu> {
               Row(
                 children: [
                   ElevatedButton(
-                    onPressed: () {
-                      // Implementasi untuk memilih file
-                    },
+                    onPressed: _pickImage,
                     child: Text(
                       'Choose File',
                       style: TextStyle(color: Colors.black),
@@ -72,7 +105,7 @@ class _EditMenuState extends State<EditMenu> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: TextFormField(
-                  controller: _namaController,
+                  controller: _titleController,
                   decoration: const InputDecoration(
                     labelText: 'Nama Makanan',
                     border: OutlineInputBorder(),
@@ -163,28 +196,6 @@ class _EditMenuState extends State<EditMenu> {
                   controller: _kategoriController,
                   decoration: InputDecoration(
                     labelText: 'Kategori',
-                    border: const OutlineInputBorder(),
-                  ),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(left: 16, bottom: 8),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Toko',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: TextFormField(
-                  controller: _tokoController,
-                  decoration: InputDecoration(
-                    labelText: 'Toko',
                     border: const OutlineInputBorder(),
                   ),
                 ),
@@ -285,12 +296,41 @@ class _EditMenuState extends State<EditMenu> {
               ),
               const SizedBox(height: 20),
               Center(
-                child: ElevatedButton(
+                child: TextButton(
                   onPressed: () {
-                    // Implementasi untuk menambah makanan
+                    String idUser = FirebaseAuth.instance.currentUser!.uid;
+                    Stream userStream = MenuService.getUser(idUser);
+
+                    userStream.listen(
+                      (dynamic user) async {
+                        String namaPengguna = user.nama;
+                        String tokoId = user.id;
+                        // _imageUrl = await MenuService.uploadImage(_imageFile!);
+                        Menu menu = Menu(
+                            id: widget.produk.id,
+                            title: _titleController.text,
+                            description: _deskripsiController.text,
+                            imageUrl: _imageUrl,
+                            harga: _hargaController.text,
+                            jamBuka: _jamBuka.text,
+                            kategori: _kategoriController.text,
+                            jenis: _jenisController.text,
+                            isFavorite: _isFavorite.value,
+                            isPromo: _isPromo.value,
+                            toko: namaPengguna);
+
+                        try {
+                          await MenuService.updateProduk(tokoId, menu);
+                          Navigator.of(context).pop();
+                        } catch (error) {
+                          print("Error updating product: $error");
+                          // Handle error, display error message, etc.
+                        }
+                      },
+                    );
                   },
                   child: Text(
-                    'Edit Makanan',
+                    'Edit Produk',
                     style: TextStyle(color: Colors.black),
                   ),
                 ),

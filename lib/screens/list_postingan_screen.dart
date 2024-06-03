@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:red_wine/screens/edit_menu.dart';
 import 'package:red_wine/service/firebase.dart';
 
 class ListPostinganScreen extends StatefulWidget {
@@ -45,12 +46,14 @@ class _ListPostinganScreenState extends State<ListPostinganScreen> {
                     return Card(
                       child: InkWell(
                         onTap: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => NoteEditScreen(note: document),
-                          //   ),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => EditMenu(
+                                produk: document,
+                              ),
+                            ),
+                          );
                         },
                         child: Column(
                           children: [
