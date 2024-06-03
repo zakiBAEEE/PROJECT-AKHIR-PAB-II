@@ -48,8 +48,8 @@ class SignUpScreenState extends State<SignUpScreen> {
                         color: Colors.white,
                       ),
                     ),
-                      const SizedBox(height: 32.0),
-                      TextField(
+                    const SizedBox(height: 32.0),
+                    TextField(
                       controller: _namaController,
                       decoration: const InputDecoration(
                         labelText: 'Nama Anda',
@@ -85,9 +85,8 @@ class SignUpScreenState extends State<SignUpScreen> {
                       ),
                       obscureText: true,
                     ),
-                                        const SizedBox(height: 16.0),
-
-                     TextField(
+                    const SizedBox(height: 16.0),
+                    TextField(
                       controller: _jenisUserController,
                       decoration: const InputDecoration(
                         labelText: 'Jenis User',
@@ -99,31 +98,31 @@ class SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                     const SizedBox(height: 16.0),
-                  
-                    
                     ElevatedButton(
                       onPressed: () async {
                         try {
-                        UserCredential userCredential =   await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                          UserCredential userCredential = await FirebaseAuth
+                              .instance
+                              .createUserWithEmailAndPassword(
                             email: _usernameController.text,
                             password: _passwordController.text,
                           );
 
-                                                  // Dapatkan ID pengguna dan alamat email
-    String idUser = userCredential.user!.uid;
-    String email = userCredential.user!.email!;
+                          // Dapatkan ID pengguna dan alamat email
+                          String idUser = userCredential.user!.uid;
+                          String email = userCredential.user!.email!;
 
-    // Panggil fungsi addUser untuk menambahkan data pengguna baru ke Firestore
-    await MenuService.addUser(idUser, _namaController.text, email, _jenisUserController.text);
+                          // Panggil fungsi addUser untuk menambahkan data pengguna baru ke Firestore
+                          await MenuService.addUser(
+                              idUser,
+                              _namaController.text,
+                              email,
+                              _jenisUserController.text);
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
                                 builder: (context) => const SignInScreen()),
                           );
-                        }
-                        
-                         
-                        
-                        catch (error) {
+                        } catch (error) {
                           setState(() {
                             _errorMessage = error.toString();
                           });

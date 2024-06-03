@@ -80,11 +80,8 @@ class SignInScreenState extends State<SignInScreen> {
                             password: _passwordController.text,
                           );
 
-                         
-
                           Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                                builder: (context) => MyApp()),
+                            MaterialPageRoute(builder: (context) => MyApp()),
                           );
                         } catch (error) {
                           setState(() {

@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 if (promo.isNotEmpty) ...[
                   const Text(
-                    'Best Seller',
+                    'Produk Terbaru',
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
                   ),
                   SizedBox(

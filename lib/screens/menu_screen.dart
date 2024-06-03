@@ -5,7 +5,6 @@ import 'package:red_wine/widget/card_menu.dart';
 class MenuScreen extends StatefulWidget {
   const MenuScreen({Key? key}) : super(key: key);
 
-
   @override
   State<MenuScreen> createState() => _MenuScreenState();
 }
@@ -45,7 +44,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   children: [
                     // Bagian Makanan
                     if (makanan.isNotEmpty) ...[
-                     const Text(
+                      const Text(
                         'Makanan',
                         style: TextStyle(
                             fontSize: 30, fontWeight: FontWeight.w600),
@@ -72,10 +71,10 @@ class _MenuScreenState extends State<MenuScreen> {
 
                     // Bagian Minuman
                     if (minuman.isNotEmpty) ...[
-                    const  SizedBox(height: 16.0), // Spasi antara bagian
-                     const Text(
+                      const SizedBox(height: 16.0), // Spasi antara bagian
+                      const Text(
                         'Minuman',
-                         style: TextStyle(
+                        style: TextStyle(
                             fontSize: 30, fontWeight: FontWeight.w600),
                       ),
                       SizedBox(
