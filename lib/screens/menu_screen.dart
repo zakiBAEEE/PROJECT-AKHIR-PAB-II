@@ -75,7 +75,7 @@ class _MenuScreenState extends State<MenuScreen> {
                       ),
                     ],
                     if (minuman.isNotEmpty) ...[
-                      const SizedBox(height: 16.0),
+                      const SizedBox(height: 16.0), // Spasi antara bagian
                       const Text(
                         'Minuman',
                         style: TextStyle(
