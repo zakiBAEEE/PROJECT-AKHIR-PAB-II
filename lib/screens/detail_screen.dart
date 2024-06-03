@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:red_wine/models/menu.dart';
+import 'package:red_wine/screens/favoite_menu_list.dart';
 import 'package:red_wine/screens/komentar_screen.dart';
 
 class DetailPage extends StatefulWidget {
@@ -12,22 +13,32 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   bool isFavorite = false;
+  late FavoriteMenuList favoriteMenuList;
   // bool isSignIn = false; // Menyimpan status sign in
 
   @override
   void initState() {
     super.initState();
     // _checkSignInStatus();
+      favoriteMenuList = FavoriteMenuList();
   }
 
-  Future<void> _toggleFavorite() async {
-    bool favoriteStatus = !isFavorite;
-    // Tambahkan pemanggilan untuk memperbarui tampilan Favorit
-
-    setState(() {
-      isFavorite = favoriteStatus;
-    });
-  }
+  void _toggleFavorite() {
+  setState(() {
+    if (!isFavorite) {
+      // Tambahkan menu ke daftar favorit jika belum ada
+      // (disini, Anda perlu mengakses class yang mengelola state favorit, atau menggunakan metode yang sesuai untuk mengelola state global favorit)
+      favoriteMenuList.add(widget.menu);
+    } else {
+      // Hapus menu dari daftar favorit jika sudah ada
+      favoriteMenuList.remove(widget.menu);
+    }
+    // Tandai apakah menu ini sudah ditandai sebagai favorit atau tidak
+    isFavorite = !isFavorite;
+  });
+  // Kembali ke layar sebelumnya (FavoriteMenuScreen)
+  Navigator.pop(context);
+}
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +109,7 @@ class _DetailPageState extends State<DetailPage> {
                 ],
               ),
               const SizedBox(
-                width: 30,
+                width: 15,
               ),
               Container(
                 width: 2,
@@ -106,7 +117,7 @@ class _DetailPageState extends State<DetailPage> {
                 color: Colors.black,
               ),
               const SizedBox(
-                width: 20,
+                width: 15,
               ),
               const Column(
                 children: [
@@ -115,13 +126,13 @@ class _DetailPageState extends State<DetailPage> {
                     height: 5,
                   ),
                   Text(
-                    " Menit",
+                    "-",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   )
                 ],
               ),
               const SizedBox(
-                width: 20,
+                width: 15,
               ),
               Container(
                 width: 2,

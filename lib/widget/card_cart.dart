@@ -7,7 +7,7 @@ class CardCart extends StatefulWidget {
 
   const CardCart({super.key, 
     required this.menu, 
-    required this.id,
+    required this.id, required Future<void> Function() onFavoriteToggle,
   });
 
   @override

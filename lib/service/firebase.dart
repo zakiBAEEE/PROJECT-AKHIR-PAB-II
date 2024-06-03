@@ -150,6 +150,29 @@ class MenuService {
     await _userCollection.doc(tokoId).collection('produk').add(newProduk);
   }
 
+  static Future<void> updateProduk(
+      Komentar komentar, String tokoId, String produkId, Menu menu) async {
+    Map<String, dynamic> updateProduk = {
+      'title': menu.title,
+      'description': menu.description,
+      'imageUrl': menu.imageUrl,
+      'harga': menu.harga,
+      'isFavorite': false,
+      'isPromo': menu.isPromo,
+      'jamBuka': menu.jamBuka,
+      'jenis': menu.jenis,
+      'kategori': menu.kategori,
+      'created_at': komentar.createdAt,
+      'updated_at': FieldValue.serverTimestamp(),
+    };
+
+    await _userCollection
+        .doc(tokoId)
+        .collection('produk')
+        .doc(produkId)
+        .update(updateProduk);
+  }
+
 // ==================================================================================
   static Future<void> addUser(
       String idUser, String nama, String email, String jenisUser) async {
@@ -173,6 +196,7 @@ class MenuService {
       var doc = snapshot.docs.first;
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
       return Pengguna(
+        id: doc.id,
         idUser: data['idUser'],
         nama: data['nama'],
         email: data['email'],

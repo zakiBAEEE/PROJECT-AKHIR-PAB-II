@@ -11,7 +11,7 @@ class SignInScreen extends StatefulWidget {
 }
 
 class SignInScreenState extends State<SignInScreen> {
-  final _usernameController = TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   String _errorMessage = '';
   @override
@@ -47,9 +47,9 @@ class SignInScreenState extends State<SignInScreen> {
                     ),
                     const SizedBox(height: 32.0),
                     TextField(
-                      controller: _usernameController,
+                      controller: _emailController,
                       decoration: const InputDecoration(
-                        labelText: 'Username',
+                        labelText: 'Email',
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
@@ -76,15 +76,12 @@ class SignInScreenState extends State<SignInScreen> {
                         try {
                           await FirebaseAuth.instance
                               .signInWithEmailAndPassword(
-                            email: _usernameController.text,
+                            email: _emailController.text,
                             password: _passwordController.text,
                           );
 
-                         
-
                           Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                                builder: (context) => MyApp()),
+                            MaterialPageRoute(builder: (context) => MyApp()),
                           );
                         } catch (error) {
                           setState(() {
@@ -118,7 +115,7 @@ class SignInScreenState extends State<SignInScreen> {
                       },
                       child: const Text(
                         'Don\'t have an account? Sign up',
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                     const SizedBox(height: 162.0),
@@ -126,7 +123,7 @@ class SignInScreenState extends State<SignInScreen> {
                 ),
                 const Text(
                   'By Kelompok Pempek RedWine',
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(color: Colors.white),
                 ),
               ],
             ),

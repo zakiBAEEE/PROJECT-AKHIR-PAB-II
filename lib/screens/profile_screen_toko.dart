@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:red_wine/screens/edit_foto_profil.dart';
+import 'package:red_wine/screens/list_postingan_screen.dart';
 import 'package:red_wine/service/firebase.dart';
 import 'package:red_wine/screens/add_menu.dart';
 import 'package:red_wine/widget/card_menu.dart';
@@ -193,7 +194,32 @@ class _MyWidgetState extends State<ProfileScreenToko> {
                                     backgroundColor:
                                         const Color.fromARGB(255, 57, 255, 7)),
                                 child: const Text(
-                                  "Add menu",
+                                  "Add Postingan",
+                                  style: TextStyle(
+                                      color: Color.fromARGB(255, 0, 0, 0)),
+                                ),
+                              ),
+                            ],
+                          ),
+                          ButtonBar(
+                            alignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            ListPostinganScreen(
+                                                namaUser: user.nama)),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    fixedSize: Size(200, 40),
+                                    backgroundColor:
+                                        const Color.fromARGB(255, 57, 255, 7)),
+                                child: const Text(
+                                  "Edit Postingan",
                                   style: TextStyle(
                                       color: Color.fromARGB(255, 0, 0, 0)),
                                 ),
