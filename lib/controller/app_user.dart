@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:red_wine/screens/favorite_screen.dart';
 import 'package:red_wine/screens/home_screen.dart';
 import 'package:red_wine/screens/menu_screen.dart';
 import 'package:red_wine/screens/profile_screen_pelanggan.dart';
 import 'package:red_wine/screens/profile_screen_toko.dart';
-import 'package:red_wine/screens/favorite_screen.dart';
 import 'package:red_wine/screens/sign_in_screen.dart';
 import 'package:red_wine/screens/toko_screen.dart';
 import 'dart:async';
@@ -83,6 +83,19 @@ class _MyAppState extends State<MyApp> {
                   signOut(context);
                 },
                 icon: const Icon(Icons.logout),
+              ),
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FavoriteMenuScreen(
+                        favoriteMenus: [],
+                      ),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.favorite),
               ),
             ],
             flexibleSpace: currentTabIndex == 1
