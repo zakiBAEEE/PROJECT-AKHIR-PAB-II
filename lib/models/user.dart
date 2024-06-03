@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Pengguna {
+  String? id;
   String? idUser;
   String nama;
   String email;
@@ -10,7 +11,8 @@ class Pengguna {
   Timestamp? updateAt;
 
   Pengguna(
-      {this.idUser,
+      {this.id,
+      this.idUser,
       required this.nama,
       required this.email,
       required this.jenisUser,
@@ -21,6 +23,7 @@ class Pengguna {
   factory Pengguna.fromDocument(DocumentSnapshot doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     return Pengguna(
+      id: doc.id,
       idUser: data['idUser'],
       nama: data['nama'],
       email: data['email'],
@@ -33,11 +36,12 @@ class Pengguna {
 
   Map<String, dynamic> toDocument() {
     return {
-      'idUser' : idUser,
-      'nama' : nama,
-      'email' : email,
-      'jenisUser' : jenisUser,
-      'imageUrl' : imageUrl,
+      'id': id,
+      'idUser': idUser,
+      'nama': nama,
+      'email': email,
+      'jenisUser': jenisUser,
+      'imageUrl': imageUrl,
       'created_at': createdAt,
       'update_at': updateAt,
     };

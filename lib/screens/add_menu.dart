@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:red_wine/models/menu.dart';
+import 'package:red_wine/service/firebase.dart';
 
 class AddMenu extends StatefulWidget {
   const AddMenu({super.key});
@@ -8,16 +12,27 @@ class AddMenu extends StatefulWidget {
 }
 
 class _AddMenuState extends State<AddMenu> {
-  final TextEditingController _namaController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
   final TextEditingController _hargaController = TextEditingController();
   final TextEditingController _deskripsiController = TextEditingController();
   final TextEditingController _jenisController = TextEditingController();
   final TextEditingController _kategoriController = TextEditingController();
-  final TextEditingController _tokoController = TextEditingController();
   final ValueNotifier<bool> _isFavorite = ValueNotifier<bool>(false);
   final ValueNotifier<bool> _isPromo = ValueNotifier<bool>(false);
   final TextEditingController _jamBuka = TextEditingController();
   String? _imageUrl;
+  XFile? _imageFile;
+
+  Future<void> _pickImage() async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _imageFile = pickedFile;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +59,7 @@ class _AddMenuState extends State<AddMenu> {
               Row(
                 children: [
                   ElevatedButton(
-                    onPressed: () {
-                      // Implementasi untuk memilih file
-                    },
+                    onPressed: _pickImage,
                     child: Text(
                       'Choose File',
                       style: TextStyle(color: Colors.black),
@@ -74,7 +87,7 @@ class _AddMenuState extends State<AddMenu> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: TextFormField(
-                  controller: _namaController,
+                  controller: _titleController,
                   decoration: const InputDecoration(
                     labelText: 'Nama Makanan',
                     border: OutlineInputBorder(),
@@ -165,28 +178,6 @@ class _AddMenuState extends State<AddMenu> {
                   controller: _kategoriController,
                   decoration: InputDecoration(
                     labelText: 'Kategori',
-                    border: const OutlineInputBorder(),
-                  ),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(left: 16, bottom: 8),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Toko',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: TextFormField(
-                  controller: _tokoController,
-                  decoration: InputDecoration(
-                    labelText: 'Toko',
                     border: const OutlineInputBorder(),
                   ),
                 ),
@@ -287,9 +278,32 @@ class _AddMenuState extends State<AddMenu> {
               ),
               const SizedBox(height: 20),
               Center(
-                child: ElevatedButton(
+                child: TextButton(
                   onPressed: () {
-                    // Implementasi untuk menambah makanan
+                    String idUser = FirebaseAuth.instance.currentUser!.uid;
+                    Stream userStream = MenuService.getUser(idUser);
+
+                    userStream.listen(
+                      (dynamic user) async {
+                        String namaPengguna = user.nama;
+                        String tokoId = user.id;
+                        _imageUrl = await MenuService.uploadImage(_imageFile!);
+                        Menu menu = Menu(
+                            title: _titleController.text,
+                            description: _deskripsiController.text,
+                            imageUrl: _imageUrl,
+                            harga: _hargaController.text,
+                            jamBuka: _jamBuka.text,
+                            kategori: _kategoriController.text,
+                            jenis: _jenisController.text,
+                            isFavorite: _isFavorite.value,
+                            isPromo: _isPromo.value,
+                            toko: namaPengguna);
+
+                        MenuService.addProduk(tokoId, menu)
+                            .whenComplete(() => Navigator.of(context).pop());
+                      },
+                    );
                   },
                   child: Text(
                     'Tambah Makanan',

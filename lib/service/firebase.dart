@@ -172,6 +172,7 @@ class MenuService {
       var doc = snapshot.docs.first;
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
       return Pengguna(
+        id: doc.id,
         idUser: data['idUser'],
         nama: data['nama'],
         email: data['email'],
