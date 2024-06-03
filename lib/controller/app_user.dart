@@ -6,6 +6,7 @@ import 'package:red_wine/screens/profile_screen_pelanggan.dart';
 import 'package:red_wine/screens/profile_screen_toko.dart';
 import 'package:red_wine/screens/favorite_screen.dart';
 import 'package:red_wine/screens/sign_in_screen.dart';
+import 'package:red_wine/screens/toko_screen.dart';
 import 'dart:async';
 import 'package:red_wine/service/firebase.dart';
 
@@ -43,7 +44,8 @@ class _MyAppState extends State<MyApp> {
     return [
       const HomeScreen(),
       MenuScreen(searchQuery: searchString),
-      const FavoriteMenuScreen(favoriteMenus: []),
+      // const FavoriteMenuScreen(favoriteMenus: []),
+      TokoScreen(),
       const ProfileScreenPelanggan(), // Defaultnya ProfileScreenPelanggan
     ];
   }
