@@ -1,14 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:red_wine/screens/home_screen.dart';
 import 'package:red_wine/screens/menu_screen.dart';
 import 'package:red_wine/screens/profile_screen_pelanggan.dart';
 import 'package:red_wine/screens/profile_screen_toko.dart';
-import 'package:red_wine/screens/favorite_screen.dart';
 import 'package:red_wine/screens/sign_in_screen.dart';
 import 'package:red_wine/screens/toko_screen.dart';
 import 'dart:async';
 import 'package:red_wine/service/firebase.dart';
+import 'package:red_wine/widget/theme_provider.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -54,6 +55,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<Themeprovider>(context);
     return FutureBuilder(
       future: getUserRole(),
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
@@ -80,10 +82,16 @@ class _MyAppState extends State<MyApp> {
             actions: [
               IconButton(
                 onPressed: () {
-                  signOut(context);
+                  _showSignOutDialog(context);
                 },
                 icon: const Icon(Icons.logout),
               ),
+              IconButton(
+                icon: Icon(themeProvider.isDark ? Icons.dark_mode : Icons.light_mode),
+                onPressed: (){
+                  themeProvider.setTheme(!themeProvider.isDark);
+                },
+                )
             ],
             flexibleSpace: currentTabIndex == 1
                 ? Container(
@@ -143,6 +151,35 @@ class _MyAppState extends State<MyApp> {
               )
             ],
           ),
+        );
+      },
+    );
+  }
+
+  void _showSignOutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false, // Set to false to prevent dismissal by tapping outside the dialog
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Sign Out'),
+          content: const Text('Are you sure you want to sign out?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Dismiss the dialog
+              },
+            ),
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                // Call the signOut function and close the dialog
+                signOut(context);
+                Navigator.of(context).pop(); // Dismiss the dialog
+              },
+            ),
+          ],
         );
       },
     );

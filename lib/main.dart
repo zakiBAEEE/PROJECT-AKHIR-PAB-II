@@ -1,8 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
-import 'package:red_wine/controller/app_user.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:red_wine/screens/sign_in_screen.dart';
+import 'package:red_wine/screens/my_app_wrapper.dart';
+import 'package:red_wine/widget/theme_provider.dart';
 import 'firebase_options.dart';
 
 
@@ -11,23 +13,15 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await GetStorage.init();
   runApp(
-     MaterialApp(
-      title: 'Anggur Merah',
-      home: StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(), 
-        builder: (context, snapshot){
-          if(snapshot.hasData){
-            return const MyApp();
-          }
-          else{
-            return const SignInScreen();
-          }
-        }
-        ),
-    ),
+    ChangeNotifierProvider(
+      create: (_) => Themeprovider()..getTheme(),
+      child: const MyAppWrapper(),
+      ),
   );
 }
+
 
 
 

@@ -24,6 +24,7 @@ class _EditMenuState extends State<EditMenu> {
   String? _imageUrl;
   XFile? _imageFile;
 
+  @override
   void initState() {
     super.initState();
     if (widget.produk != null) {
@@ -56,7 +57,7 @@ class _EditMenuState extends State<EditMenu> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Produk'),
+        title: const Text('Edit Produk'),
         backgroundColor: const Color.fromARGB(255, 7, 202, 128),
         leading: IconButton(
           icon: const BackButton(
