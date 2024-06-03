@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:red_wine/service/firebase.dart';
 import 'package:red_wine/widget/card_promo.dart';
@@ -33,6 +34,14 @@ class _HomeScreenState extends State<HomeScreen> {
         var promo =
             snapshot.data!.where((document) => document.isPromo).toList();
 
+        var terbaru = snapshot.data!
+            .where((document) =>
+                document.updateAt != null &&
+                document.updateAt!.compareTo(Timestamp.fromDate(
+                        DateTime.now().subtract(Duration(hours: 6)))) >
+                    0)
+            .toList();
+
         return SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -63,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           const Duration(milliseconds: 800),
                       viewportFraction: 0.8,
                     ),
-                    items: promo.map((document) {
+                    items: terbaru.map((document) {
                       return Builder(
                         builder: (BuildContext context) {
                           return Container(

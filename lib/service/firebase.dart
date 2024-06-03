@@ -114,8 +114,8 @@ class MenuService {
             createdAt: data['created_at'] != null
                 ? data['created_at'] as Timestamp
                 : null,
-            updateAt: data['updated_at'] != null
-                ? data['updated_at'] as Timestamp
+            updateAt: data['update_at'] != null
+                ? data['update_at'] as Timestamp
                 : null,
             harga: data['harga'],
             jenis: data['jenis'],
