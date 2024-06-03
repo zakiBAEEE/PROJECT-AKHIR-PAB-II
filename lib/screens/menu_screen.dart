@@ -3,17 +3,11 @@ import 'package:red_wine/models/menu.dart';
 import 'package:red_wine/service/firebase.dart';
 import 'package:red_wine/widget/card_menu.dart';
 
-
-<<<<<<< HEAD
-=======
-
-
 class MenuScreen extends StatefulWidget {
   final String searchQuery;
 
   const MenuScreen({super.key, required this.searchQuery});
 
->>>>>>> 284dc6a2db3b08622f10f0e32d38abaf4326311e
   @override
   State<MenuScreen> createState() => _MenuScreenState();
 }
@@ -81,11 +75,7 @@ class _MenuScreenState extends State<MenuScreen> {
                       ),
                     ],
                     if (minuman.isNotEmpty) ...[
-<<<<<<< HEAD
-                      const SizedBox(height: 16.0), // Spasi antara bagian
-=======
                       const SizedBox(height: 16.0),
->>>>>>> 284dc6a2db3b08622f10f0e32d38abaf4326311e
                       const Text(
                         'Minuman',
                         style: TextStyle(
@@ -114,6 +104,6 @@ class _MenuScreenState extends State<MenuScreen> {
             );
         }
       },
-   );
-}
+    );
+  }
 }
