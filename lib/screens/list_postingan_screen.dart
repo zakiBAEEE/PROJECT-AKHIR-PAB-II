@@ -1,10 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:red_wine/service/firebase.dart';
 
 class ListPostinganScreen extends StatefulWidget {
   final String namaUser;
-  const ListPostinganScreen({Key? key, required this.namaUser});
+  final String tokoId;
+  const ListPostinganScreen(
+      {Key? key, required this.namaUser, required this.tokoId});
 
   @override
   State<ListPostinganScreen> createState() => _ListPostinganScreenState();
@@ -81,26 +84,6 @@ class _ListPostinganScreenState extends State<ListPostinganScreen> {
                               trailing: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  // IconButton(
-                                  //   icon: const Icon(Icons.map),
-                                  //   onPressed: document.latitude != null &&
-                                  //           document.longitude != null
-                                  //       ? () {
-                                  //           // _launchMaps(document.latitude!,
-                                  //           //     document.longitude!);
-                                  //           Navigator.push(
-                                  //             context,
-                                  //             MaterialPageRoute(
-                                  //               builder: (context) =>
-                                  //                   GoogleMapsScreen(
-                                  //                 latitude: document.latitude!,
-                                  //                 longitude: document.longitude!,
-                                  //               ),
-                                  //             ),
-                                  //           );
-                                  //         }
-                                  //       : null, // Disable the button if latitude or longitude is null
-                                  // ),
                                   InkWell(
                                     onTap: () {
                                       showDialog(
@@ -121,7 +104,32 @@ class _ListPostinganScreenState extends State<ListPostinganScreen> {
                                               TextButton(
                                                 child: const Text('Hapus'),
                                                 onPressed: () {
-                                                  // NoteService.deleteNote(document)
+                                                  String idUser = FirebaseAuth
+                                                      .instance
+                                                      .currentUser!
+                                                      .uid;
+                                                  Stream userStream =
+                                                      MenuService.getUser(
+                                                          idUser);
+
+                                                  userStream.listen(
+                                                    (dynamic user) async {
+                                                      String tokoId = user.id;
+
+                                                      MenuService.deleteProduk(
+                                                              tokoId,
+                                                              document.id!)
+                                                          .whenComplete(() =>
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop());
+                                                      ;
+                                                    },
+                                                  );
+
+                                                  // MenuService.deleteProduk(
+                                                  //         widget.tokoId,
+                                                  //         document.id!)
                                                   //     .whenComplete(() =>
                                                   //         Navigator.of(context)
                                                   //             .pop());
