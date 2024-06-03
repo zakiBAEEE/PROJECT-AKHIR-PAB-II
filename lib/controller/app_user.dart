@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:red_wine/screens/home_screen.dart';
 import 'package:red_wine/screens/menu_screen.dart';
 import 'package:red_wine/screens/profile_screen_pelanggan.dart';
@@ -8,6 +10,7 @@ import 'package:red_wine/screens/favorite_screen.dart';
 import 'package:red_wine/screens/sign_in_screen.dart';
 import 'dart:async';
 import 'package:red_wine/service/firebase.dart';
+
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -18,6 +21,14 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String searchString = "";
+  final box = GetStorage();
+  bool isDarkMode = false;
+
+  @override
+  void initState(){
+    super.initState();
+    isDarkMode = box.read('darkMode') ?? false;
+  }
 
   Future<void> signOut(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
@@ -73,76 +84,92 @@ class _MyAppState extends State<MyApp> {
         List<Widget> tabs = getTabs();
         tabs[3] = profileScreen;
 
-        return Scaffold(
-          appBar: AppBar(
-            actions: [
-              IconButton(
-                onPressed: () {
-                  signOut(context);
-                },
-                icon: const Icon(Icons.logout),
-              ),
-            ],
-            flexibleSpace: currentTabIndex == 1
-                ? Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Colors.deepPurple, Colors.purple.shade300],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
+        return GetMaterialApp(
+          theme: ThemeData.light(),
+          darkTheme: ThemeData.dark(),
+          themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+          home: Scaffold(
+            appBar: AppBar(
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    signOut(context);
+                  },
+                  icon: const Icon(Icons.logout),
+                ),
+                IconButton(
+                  icon: Icon(isDarkMode ? Icons.dark_mode : Icons.light_mode),
+                  onPressed: () {
+                    setState(() {
+                      isDarkMode = !isDarkMode;
+                      box.write('darkMode', isDarkMode);
+                    });
+                  },
+                ),
+              ],
+              flexibleSpace: currentTabIndex == 1
+                  ? Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Colors.deepPurple, Colors.purple.shade300],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
                       ),
-                    ),
-                  )
-                : null,
-            title: currentTabIndex == 1
-                ? TextField(
-                    style: const TextStyle(color: Colors.white),
-                    cursorColor: Colors.white,
-                    decoration: const InputDecoration(
-                      hintText: 'Search...',
-                      hintStyle: TextStyle(color: Colors.white54),
-                      border: InputBorder.none,
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        searchString = value;
-                      });
-                    },
-                  )
-                : null,
-          ),
-          body: tabs[currentTabIndex],
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: currentTabIndex,
-            onTap: (currentIndex) {
-              setState(() {
-                currentTabIndex = currentIndex;
-              });
-            },
-            selectedLabelStyle:
-                const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-            selectedItemColor: Colors.black,
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home, color: Colors.black),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.search, color: Colors.black),
-                label: 'Search',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.store, color: Colors.black),
-                label: 'Toko',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle, color: Colors.black),
-                label: 'Profile',
-              )
-            ],
+                    )
+                  : null,
+              title: currentTabIndex == 1
+                  ? TextField(
+                      style: const TextStyle(color: Colors.white),
+                      cursorColor: Colors.white,
+                      decoration: const InputDecoration(
+                        hintText: 'Search...',
+                        hintStyle: TextStyle(color: Colors.white54),
+                        border: InputBorder.none,
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          searchString = value;
+                        });
+                      },
+                    )
+                  : null,
+            ),
+            body: tabs[currentTabIndex],
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex: currentTabIndex,
+              onTap: (currentIndex) {
+                setState(() {
+                  currentTabIndex = currentIndex;
+                });
+              },
+              selectedLabelStyle:
+                  const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+              selectedItemColor: Colors.black,
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home, color: Colors.black),
+                  label: 'Home',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.search, color: Colors.black),
+                  label: 'Search',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.store, color: Colors.black),
+                  label: 'Toko',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.account_circle, color: Colors.black),
+                  label: 'Profile',
+                )
+              ],
+            ),
           ),
         );
+        
       },
+      
     );
   }
 }

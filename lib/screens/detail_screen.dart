@@ -67,7 +67,7 @@ class _DetailPageState extends State<DetailPage> {
       isFavorite = !isFavorite;
     });
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
