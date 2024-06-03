@@ -108,5 +108,5 @@ class _MenuScreenState extends State<MenuScreen> {
         }
       },
    );
- }
+}
 }

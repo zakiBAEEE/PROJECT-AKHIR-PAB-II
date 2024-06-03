@@ -81,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                                 Text(
                                   document.toko,
-                                  style: TextStyle(fontSize: 14.0),
+                                  style: TextStyle(fontSize: 10.0),
                                 ),
                                 if (document.imageUrl != null)
                                   Material(
@@ -108,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const SizedBox(height: 16.0), // Padding after carousel slider
                   GridView.count(
-                    crossAxisCount: 3,
+                    crossAxisCount: 2,
                     mainAxisSpacing: 4.0,
                     crossAxisSpacing: 4.0,
                     shrinkWrap:

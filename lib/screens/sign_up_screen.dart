@@ -155,7 +155,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                       },
                       child: const Text(
                         'Already have an account? Sign in',
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                     const SizedBox(height: 162.0),

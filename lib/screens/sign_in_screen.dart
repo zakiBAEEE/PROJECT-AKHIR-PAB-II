@@ -118,7 +118,7 @@ class SignInScreenState extends State<SignInScreen> {
                       },
                       child: const Text(
                         'Don\'t have an account? Sign up',
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                     const SizedBox(height: 162.0),
@@ -126,7 +126,7 @@ class SignInScreenState extends State<SignInScreen> {
                 ),
                 const Text(
                   'By Kelompok Pempek RedWine',
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(color: Colors.white),
                 ),
               ],
             ),
