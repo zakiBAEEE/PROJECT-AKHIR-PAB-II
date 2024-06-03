@@ -2,12 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:red_wine/screens/home_screen.dart';
 import 'package:red_wine/screens/menu_screen.dart';
-import 'package:red_wine/screens/profile_screen_pelanggan.dart'; // import ProfileScreenPelanggan
-import 'package:red_wine/screens/profile_screen_toko.dart'; // import ProfileScreenToko
+import 'package:red_wine/screens/profile_screen_pelanggan.dart';
+import 'package:red_wine/screens/profile_screen_toko.dart';
 import 'package:red_wine/screens/favorite_screen.dart';
 import 'package:red_wine/screens/sign_in_screen.dart';
 import 'dart:async';
-import 'package:red_wine/service/firebase.dart'; // Import untuk Completer
+import 'package:red_wine/service/firebase.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -17,10 +17,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  String searchString = "";
+
   Future<void> signOut(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => SignInScreen()),
+      MaterialPageRoute(builder: (context) => const SignInScreen()),
     );
   }
 
@@ -37,14 +39,15 @@ class _MyAppState extends State<MyApp> {
     return completer.future;
   }
 
-  final Tabs = [
-    const HomeScreen(),
-    const MenuScreen(),
-    const FavoriteMenuScreen(favoriteMenus: []),
-    // ProfileScreen bergantung pada peran pengguna
-    // Jadi, kita buat tampilan ProfileScreen dinamis
-    ProfileScreenPelanggan(), // Defaultnya ProfileScreenPelanggan
-  ];
+  List<Widget> getTabs() {
+    return [
+      const HomeScreen(),
+      MenuScreen(searchQuery: searchString),
+      const FavoriteMenuScreen(favoriteMenus: []),
+      const ProfileScreenPelanggan(), // Defaultnya ProfileScreenPelanggan
+    ];
+  }
+
   int currentTabIndex = 0;
 
   @override
@@ -54,14 +57,11 @@ class _MyAppState extends State<MyApp> {
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
         Widget profileScreen;
         if (snapshot.connectionState == ConnectionState.waiting) {
-          // Menampilkan loading indicator jika masih dalam proses mendapatkan peran pengguna
           profileScreen = const Center(child: CircularProgressIndicator());
         } else {
           if (snapshot.hasError) {
-            // Menampilkan pesan error jika terjadi kesalahan
             profileScreen = Center(child: Text('Error: ${snapshot.error}'));
           } else {
-            // Tentukan kelas mana yang akan digunakan berdasarkan peran pengguna
             if (snapshot.data == 'toko') {
               profileScreen = const ProfileScreenToko();
             } else {
@@ -70,8 +70,8 @@ class _MyAppState extends State<MyApp> {
           }
         }
 
-        // Update ProfileScreen pada Tabs
-        Tabs[3] = profileScreen;
+        List<Widget> tabs = getTabs();
+        tabs[3] = profileScreen;
 
         return Scaffold(
           appBar: AppBar(
@@ -104,12 +104,14 @@ class _MyAppState extends State<MyApp> {
                       border: InputBorder.none,
                     ),
                     onChanged: (value) {
-                      // Perform search functionality here
+                      setState(() {
+                        searchString = value;
+                      });
                     },
                   )
                 : null,
           ),
-          body: Tabs[currentTabIndex],
+          body: tabs[currentTabIndex],
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: currentTabIndex,
             onTap: (currentIndex) {
