@@ -37,7 +37,6 @@ class _DetailPageState extends State<DetailPage> {
     isFavorite = !isFavorite;
   });
   // Kembali ke layar sebelumnya (FavoriteMenuScreen)
-  Navigator.pop(context);
 }
 
   @override
