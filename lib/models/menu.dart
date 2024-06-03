@@ -52,6 +52,8 @@ class Menu {
     );
   }
 
+  get name => null;
+
   Map<String, dynamic> toDocument() {
     return {
       'title': title,

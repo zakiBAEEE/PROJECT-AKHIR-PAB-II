@@ -11,7 +11,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class SignUpScreenState extends State<SignUpScreen> {
-  final _usernameController = TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _namaController = TextEditingController();
   final _jenisUserController = TextEditingController();
@@ -62,9 +62,9 @@ class SignUpScreenState extends State<SignUpScreen> {
                     ),
                     const SizedBox(height: 16.0),
                     TextField(
-                      controller: _usernameController,
+                      controller: _emailController,
                       decoration: const InputDecoration(
-                        labelText: 'Username',
+                        labelText: 'Email',
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
@@ -101,10 +101,15 @@ class SignUpScreenState extends State<SignUpScreen> {
                     ElevatedButton(
                       onPressed: () async {
                         try {
+<<<<<<< HEAD
                           UserCredential userCredential = await FirebaseAuth
                               .instance
                               .createUserWithEmailAndPassword(
                             email: _usernameController.text,
+=======
+                        UserCredential userCredential =   await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                            email: _emailController.text,
+>>>>>>> 284dc6a2db3b08622f10f0e32d38abaf4326311e
                             password: _passwordController.text,
                           );
 
@@ -154,7 +159,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                       },
                       child: const Text(
                         'Already have an account? Sign in',
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                     const SizedBox(height: 162.0),
