@@ -24,7 +24,7 @@ class _CardMenuState extends State<CardMenu> {
 
   @override
   Widget build(BuildContext context) {
-    double discountedPrice = calculateDiscountPrice(widget.menu.harga);
+    double discountedPrice = widget.menu.isPromo ? calculateDiscountPrice(widget.menu.harga) : 0.0;
 
     return InkWell(
       onTap: () {
@@ -43,7 +43,7 @@ class _CardMenuState extends State<CardMenu> {
               alignment: AlignmentDirectional.bottomStart,
               children: [
                 SizedBox(
-                  height: 120, // Adjusted image height
+                  height: 90, // Adjusted image height
                   width: MediaQuery.of(context).size.width,
                   child: Ink.image(
                     image: NetworkImage("${widget.menu.imageUrl}"),
@@ -80,24 +80,33 @@ class _CardMenuState extends State<CardMenu> {
               style: const TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 8),
-            Row(
-              children: [
-                SlashedText(
-                  text: widget.menu.harga,
-                  style: const TextStyle(fontSize: 14, color: Colors.grey),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 4.0),
-                  child: Text(
-                    'Rp${discountedPrice.toStringAsFixed(0)}',
-                    maxLines: 1,
-                    overflow: TextOverflow.clip,
-                    softWrap: false,
-                    style: const TextStyle(fontSize: 14, color: Colors.red),
+            if (widget.menu.isPromo)
+              Row(
+                children: [
+                  SlashedText(
+                    text: widget.menu.harga,
+                    style: const TextStyle(fontSize: 14, color: Colors.grey),
                   ),
-                ),
-              ],
-            ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 4.0),
+                    child: Text(
+                      'Rp${discountedPrice.toStringAsFixed(0)}',
+                      maxLines: 1,
+                      overflow: TextOverflow.clip,
+                      softWrap: false,
+                      style: const TextStyle(fontSize: 14, color: Colors.red),
+                    ),
+                  ),
+                ],
+              )
+            else
+              Text(
+                widget.menu.harga,
+                maxLines: 1,
+                overflow: TextOverflow.clip,
+                softWrap: false,
+                style: const TextStyle(fontSize: 14, color: Colors.black),
+              ),
           ],
         ),
       ),

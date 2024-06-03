@@ -11,7 +11,7 @@ class SignInScreen extends StatefulWidget {
 }
 
 class SignInScreenState extends State<SignInScreen> {
-  final _usernameController = TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   String _errorMessage = '';
   @override
@@ -47,9 +47,9 @@ class SignInScreenState extends State<SignInScreen> {
                     ),
                     const SizedBox(height: 32.0),
                     TextField(
-                      controller: _usernameController,
+                      controller: _emailController,
                       decoration: const InputDecoration(
-                        labelText: 'Username',
+                        labelText: 'Email',
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
@@ -76,7 +76,7 @@ class SignInScreenState extends State<SignInScreen> {
                         try {
                           await FirebaseAuth.instance
                               .signInWithEmailAndPassword(
-                            email: _usernameController.text,
+                            email: _emailController.text,
                             password: _passwordController.text,
                           );
 

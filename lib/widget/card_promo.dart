@@ -38,7 +38,7 @@ class CardPromo extends StatelessWidget {
               alignment: AlignmentDirectional.bottomStart,
               children: [
                 SizedBox(
-                  height: 120, // Adjusted image height
+                  height: 95, // Adjusted image height
                   width: MediaQuery.of(context).size.width,
                   child: Ink.image(
                     image: NetworkImage("${menu.imageUrl}"),
