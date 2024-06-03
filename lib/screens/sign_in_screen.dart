@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:red_wine/controller/app_user.dart';
+import 'package:red_wine/models/assets.dart';
 import 'package:red_wine/screens/sign_up_screen.dart';
-import 'package:red_wine/screens/home_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -17,7 +18,11 @@ class SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.yellow, // Ganti dengan gambar latar belakang nanti
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                colorFilter: ColorFilter.mode(Colors.grey, BlendMode.multiply),
+                image: AssetImage(Assets.bgpic),
+                fit: BoxFit.cover)), // Ganti dengan gambar latar belakang nanti
         child: Center(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
@@ -29,7 +34,7 @@ class SignInScreenState extends State<SignInScreen> {
                     const SizedBox(height: 32.0),
                     Image.asset(
                       'assets/logo.png', // Ganti dengan path logo Anda
-                      height: 100,
+                      height: 200,
                     ),
                     const SizedBox(height: 16.0),
                     const Text(
@@ -69,13 +74,17 @@ class SignInScreenState extends State<SignInScreen> {
                     ElevatedButton(
                       onPressed: () async {
                         try {
-                          await FirebaseAuth.instance.signInWithEmailAndPassword(
+                          await FirebaseAuth.instance
+                              .signInWithEmailAndPassword(
                             email: _usernameController.text,
                             password: _passwordController.text,
                           );
+
+                         
+
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
-                                builder: (context) => const HomePage()),
+                                builder: (context) => MyApp()),
                           );
                         } catch (error) {
                           setState(() {
@@ -90,8 +99,8 @@ class SignInScreenState extends State<SignInScreen> {
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 50.0, vertical: 15.0), 
-                            backgroundColor: Colors.green, // Warna tombol login
+                            horizontal: 50.0, vertical: 15.0),
+                        backgroundColor: Colors.green, // Warna tombol login
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
@@ -109,7 +118,7 @@ class SignInScreenState extends State<SignInScreen> {
                       },
                       child: const Text(
                         'Don\'t have an account? Sign up',
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.black),
                       ),
                     ),
                     const SizedBox(height: 162.0),
@@ -117,7 +126,7 @@ class SignInScreenState extends State<SignInScreen> {
                 ),
                 const Text(
                   'By Kelompok Pempek RedWine',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.black),
                 ),
               ],
             ),
@@ -127,6 +136,3 @@ class SignInScreenState extends State<SignInScreen> {
     );
   }
 }
-
-
-

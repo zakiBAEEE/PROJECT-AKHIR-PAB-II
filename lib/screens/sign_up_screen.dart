@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:red_wine/models/assets.dart';
 import 'package:red_wine/screens/sign_in_screen.dart';
-
+import 'package:red_wine/service/firebase.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -12,14 +13,19 @@ class SignUpScreen extends StatefulWidget {
 class SignUpScreenState extends State<SignUpScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
+  final _namaController = TextEditingController();
+  final _jenisUserController = TextEditingController();
   String _errorMessage = '';
-  
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: Container(
-        color: Colors.yellow, // Ganti dengan gambar latar belakang nanti
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                colorFilter: ColorFilter.mode(Colors.grey, BlendMode.multiply),
+                image: AssetImage(Assets.bgpic),
+                fit: BoxFit.cover)), // Ganti dengan gambar latar belakang nanti
         child: Center(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
@@ -31,7 +37,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                     const SizedBox(height: 32.0),
                     Image.asset(
                       'assets/logo.png', // Ganti dengan path logo Anda
-                      height: 100,
+                      height: 200,
                     ),
                     const SizedBox(height: 16.0),
                     const Text(
@@ -42,7 +48,19 @@ class SignUpScreenState extends State<SignUpScreen> {
                         color: Colors.white,
                       ),
                     ),
-                    const SizedBox(height: 32.0),
+                      const SizedBox(height: 32.0),
+                      TextField(
+                      controller: _namaController,
+                      decoration: const InputDecoration(
+                        labelText: 'Nama Anda',
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16.0),
                     TextField(
                       controller: _usernameController,
                       decoration: const InputDecoration(
@@ -67,32 +85,45 @@ class SignUpScreenState extends State<SignUpScreen> {
                       ),
                       obscureText: true,
                     ),
-                    const SizedBox(height: 16.0),
-                    TextField(
-                      controller: _confirmPasswordController,
+                                        const SizedBox(height: 16.0),
+
+                     TextField(
+                      controller: _jenisUserController,
                       decoration: const InputDecoration(
-                        labelText: 'Konfirmasi Password',
+                        labelText: 'Jenis User',
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
                       ),
-                      obscureText: true,
                     ),
                     const SizedBox(height: 16.0),
+                  
+                    
                     ElevatedButton(
                       onPressed: () async {
                         try {
-                          await FirebaseAuth.instance.signInWithEmailAndPassword(
+                        UserCredential userCredential =   await FirebaseAuth.instance.createUserWithEmailAndPassword(
                             email: _usernameController.text,
                             password: _passwordController.text,
                           );
+
+                                                  // Dapatkan ID pengguna dan alamat email
+    String idUser = userCredential.user!.uid;
+    String email = userCredential.user!.email!;
+
+    // Panggil fungsi addUser untuk menambahkan data pengguna baru ke Firestore
+    await MenuService.addUser(idUser, _namaController.text, email, _jenisUserController.text);
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
                                 builder: (context) => const SignInScreen()),
                           );
-                        } catch (error) {
+                        }
+                        
+                         
+                        
+                        catch (error) {
                           setState(() {
                             _errorMessage = error.toString();
                           });
@@ -105,13 +136,13 @@ class SignUpScreenState extends State<SignUpScreen> {
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 50.0, vertical: 15.0), 
-                            backgroundColor: Colors.green, // Warna tombol login
+                            horizontal: 50.0, vertical: 15.0),
+                        backgroundColor: Colors.green, // Warna tombol login
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                       ),
-                      child: const Text('Register'),
+                      child: const Text('Sign Up'),
                     ),
                     const SizedBox(height: 16.0),
                     TextButton(
@@ -124,7 +155,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                       },
                       child: const Text(
                         'Already have an account? Sign in',
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.black),
                       ),
                     ),
                     const SizedBox(height: 162.0),

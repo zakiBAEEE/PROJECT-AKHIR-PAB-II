@@ -1,31 +1,31 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Komentar {
-  String? id;
-  String? komentar;
-  String? namaPengguna;
-  String? imageUrl;
+class Pengguna {
   String? idUser;
+  String nama;
+  String email;
+  String jenisUser;
+  String? imageUrl;
   Timestamp? createdAt;
   Timestamp? updateAt;
 
-  Komentar(
-      {this.id,
-      this.komentar,
-      this.namaPengguna,
+  Pengguna(
+      {this.idUser,
+      required this.nama,
+      required this.email,
+      required this.jenisUser,
       this.imageUrl,
-      this.idUser,
       this.createdAt,
       this.updateAt});
 
-  factory Komentar.fromDocument(DocumentSnapshot doc) {
+  factory Pengguna.fromDocument(DocumentSnapshot doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-    return Komentar(
-      id: doc.id,
-      komentar: data['komentar'],
-      namaPengguna: data['namaPengguna'],
-      imageUrl: data['imageUrl'],
+    return Pengguna(
       idUser: data['idUser'],
+      nama: data['nama'],
+      email: data['email'],
+      jenisUser: data['jenisUser'],
+      imageUrl: data['imageUrl'],
       createdAt: data['created_at'] as Timestamp,
       updateAt: data['update_at'] as Timestamp,
     );
@@ -33,10 +33,11 @@ class Komentar {
 
   Map<String, dynamic> toDocument() {
     return {
-      'komentar' : komentar,
-      'namaPengguna': namaPengguna,
-      'imageUrl' : imageUrl,
       'idUser' : idUser,
+      'nama' : nama,
+      'email' : email,
+      'jenisUser' : jenisUser,
+      'imageUrl' : imageUrl,
       'created_at': createdAt,
       'update_at': updateAt,
     };
