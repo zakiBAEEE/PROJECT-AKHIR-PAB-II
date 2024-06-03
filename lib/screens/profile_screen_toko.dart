@@ -211,7 +211,9 @@ class _MyWidgetState extends State<ProfileScreenToko> {
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             ListPostinganScreen(
-                                                namaUser: user.nama)),
+                                              namaUser: user.nama,
+                                              tokoId: user.idUser!,
+                                            )),
                                   );
                                 },
                                 style: ElevatedButton.styleFrom(
