@@ -215,6 +215,25 @@ class MenuService {
     });
   }
 
+  static Stream<List<Pengguna>> getAllToko() {
+    return _userCollection
+        .where('jenisUser', isEqualTo: "toko")
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs.map((doc) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        return Pengguna(
+          id: doc.id,
+          idUser: data['idUser'],
+          nama: data['nama'],
+          email: data['email'],
+          imageUrl: data['imageUrl'],
+          jenisUser: data['jenisUser'],
+        );
+      }).toList();
+    });
+  }
+
   static Future<void> updateUser(Pengguna user, String namaBaru) async {
     Map<String, dynamic> updateUser = {
       'nama': namaBaru,
