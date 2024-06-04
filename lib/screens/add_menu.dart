@@ -194,6 +194,7 @@ class _AddMenuState extends State<AddMenu> {
                   ),
                 ),
               ),
+              
               Column(
                 children: <Widget>[
                   ValueListenableBuilder<bool>(
